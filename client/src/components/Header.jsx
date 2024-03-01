@@ -3,9 +3,7 @@ import { FaSearch } from 'react-icons/fa'
 import { Link, useLocation } from 'react-router-dom'
 
 export default function Header() {
-
     const location = useLocation();
-
     function pathMatchRoute(route) {
         if (route === location.pathname){
             return true;
@@ -26,6 +24,12 @@ export default function Header() {
             </form>
             
             <ul className='flex gap-4'>
+
+                {/*
+                intellisense says ''border-b-transparent' applies the same CSS properties as 'border-b-[3]'', when it clearly doesn't?, 
+                also the '${pathMatchRoute('/') && 'text-black border-b-red-500'}' part is executed but not visualized in localhost, 
+                reason - border bottom remains 0, even after tailwind styling is applied
+                */}
                 <Link to='/'>
                 <li className={`py-6 text-md font-semibold text-gray-400 border-b-[3] border-b-transparent hidden sm:inline ${pathMatchRoute('/') && 'text-black border-b-red-500'}`}>Home</li>
                 </Link>
