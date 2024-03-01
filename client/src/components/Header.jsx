@@ -1,33 +1,46 @@
 import logo from '../../public/images/logo.svg'
 import { FaSearch } from 'react-icons/fa'
-import { Link } from 'react-router-dom'
+import { Link, useLocation } from 'react-router-dom'
 
 export default function Header() {
+
+    const location = useLocation();
+
+    function pathMatchRoute(route) {
+        if (route === location.pathname){
+            return true;
+        }
+    }
+
   return (
-    <header className='bg-white border-b shadow-sm sticky'>
+    /* 'top-0 z-50' is subject to change due to stylistic reasons. What it does is stick the header to the top of the page so it stays put even if scrolling.*/
+    <header className='bg-white border-b shadow-sm sticky top-0 z-50'>
         <div className='flex justify-between items-center max-w-6xl mx-auto p-3'>
             <Link to='/'>
             <img src={logo} alt='Martin Estate Logo' className='h-8 sm:h-10 cursor-pointer' />
             </Link>
+
             <form className='bg-slate-100 p-3 rounded-lg flex items-center'>
                 <input type='text' placeholder='Search...' className='bg-transparent focus:outline-none w-24 sm:w-64 md:w-48' />
                 <FaSearch className='text-black' />
             </form>
+            
             <ul className='flex gap-4'>
                 <Link to='/'>
-                <li className='hidden sm:inline'>Home</li>
+                <li className={`py-6 text-md font-semibold text-gray-400 border-b-[3] border-b-transparent hidden sm:inline ${pathMatchRoute('/') && 'text-black border-b-red-500'}`}>Home</li>
                 </Link>
 
                 <Link to='/offers'>
-                <li className='hidden sm:inline'>Offers</li>
+                <li className={`text-md font-semibold text-gray-400 border-b-[3] border-b-transparent hidden sm:inline ${pathMatchRoute('/offers') && 'text-black border-b-red-500'}`}>Offers</li>
                 </Link>
 
+                {/* This is subject to change due to stylistic reasons. The location may be changed and removed from the header component.*/}
                 <Link to='/about'>
-                <li className='hidden sm:inline'>About</li>
+                <li className={`text-md font-semibold text-gray-400 border-b-[3] border-b-transparent hidden sm:inline ${pathMatchRoute('/about') && 'text-black border-b-red-500'}`}>About</li>
                 </Link>
 
                 <Link to='/sign-in'>
-                <li>Sign In</li>
+                <li className={`text-md font-semibold text-gray-400 border-b-[3] border-b-transparent ${pathMatchRoute('/sign-in') && 'text-black border-b-red-500'}`}>Sign In</li>
                 </Link>
             </ul>
         </div>
