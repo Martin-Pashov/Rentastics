@@ -4,6 +4,7 @@ import { Link, useNavigate } from 'react-router-dom';
 export default function SignUp() {
   const [formData, setFormData] = useState({});
   const [error, setError] = useState(null);
+  const [successMessage, setSuccessMessage] = useState(null);
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
@@ -19,37 +20,38 @@ export default function SignUp() {
 
     try {
       setLoading(true);
-      const res = await fetch('/api/auth/signup', 
-      {
+      const res = await fetch('/api/auth/signup', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(formData), 
+        body: JSON.stringify(formData),
       });
 
       const data = await res.json();
 
-      if (data.success === false) {
-        setError(data.message);
+      if (data.success) {
+        setSuccessMessage(data.message);
+        setError(null);
         setLoading(false);
-        return;
+        navigate('/sign-in');
+      } else {
+        setError(data.message);
+        setSuccessMessage(null);
+        setLoading(false);
       }
-
+    } catch (error) {
+      setError('An error occurred during signup.');
+      setSuccessMessage(null);
       setLoading(false);
-      setError(null);
-      navigate('/sign-in');
-      }
-
-    catch {
-      setLoading(false);
-      setError(data.message);
     }
   };
+
 
   return (
     <div className='p-3 max-w-lg mx-auto'>
       <h1 className='text-3xl font-semibold text-center mb-6 text-gray-800'>Sign Up</h1>
+      {successMessage && <p className='text-green-500 mt-5'>{successMessage}</p>}
       <form onSubmit={handleOnSubmit} className='flex flex-col gap-4'>
         <input type="text" placeholder='Username' className='border rounded-lg p-3 focus:outline-none focus:border-blue-500' id='username' onChange={handleChange}/>
         <input type="email" placeholder='Email' className='border rounded-lg p-3 focus:outline-none focus:border-blue-500' id='email' onChange={handleChange}/>

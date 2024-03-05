@@ -13,15 +13,24 @@ import { errorHandler } from '../utils/error.js';
 export const signup = async (req, res, next) => {
     try {
         const { username, email, password } = req.body;
+
+        // Validate input data
+        if (!username || !email || !password) {
+            return next(errorHandler(400, 'Missing required fields.'));
+        }
+
+        const existingUser = await User.findOne({ email });
+        if (existingUser) {
+            return next(errorHandler(409, 'Email is already in use.'));
+        }
+
         const hashedPassword = bcryptjs.hashSync(password, 10);
         const newUser = new User({ username, email, password: hashedPassword });
 
         await newUser.save();
 
-        res.status(201).json({ message: "User created successfully!" });
-    } 
-    
-    catch (error) {
-        next(errorHandler(550, 'An error occurred during user signup.'));
+        res.status(201).json({ success: true, message: 'User created successfully!' });
+    } catch (error) {
+        next(errorHandler(500, 'An error occurred during user signup.'));
     }
 };
