@@ -1,6 +1,7 @@
 import User from '../models/user.model.js';
 import bcryptjs from 'bcryptjs';
 import { errorHandler } from '../utils/error.js';
+import jwt from 'jsonwebtoken';
 
 /**
  * Handles user signup, hashes the password, and saves the user to the database.
@@ -40,7 +41,9 @@ export const signup = async (req, res, next) => {
         await newUser.save();
 
         res.status(201).json({ success: true, message: 'User created successfully!' });
-    } catch (error) {
+    } 
+    
+    catch (error) {
         next(errorHandler(500, 'An error occurred during user signup.'));
     }
 };
@@ -55,16 +58,20 @@ export const signin = async (req, res, next) => {
             return next(errorHandler(404, 'User not found.'));
         }
 
-        const isValidPassword = bcrypt.compareSync(password, validUser.password);
+        const isValidPassword = bcryptjs.compareSync(password, validUser.password);
         if (!isValidPassword) {
             return next(errorHandler(401, 'Incorrect password.'));
         }
 
-        res.status(200).json({ success: true, message: 'Sign in successful!', user: validUser});
+        const token = jwt.sign({ id: validUser._id}, process.env.JWT_SECRET);
+
+        res.cookie('access_token', token, { httpOnly: true });
+        res.status(200).json({ success: true, message: 'Sign in successful!', user: validUser });
     } 
     
     catch (error) {
         // Handle unexpected errors
         next(errorHandler(500, 'An error occurred during sign-in.'));
+        //next(error);
     }
 };
