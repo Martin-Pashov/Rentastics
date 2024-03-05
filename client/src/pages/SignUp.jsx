@@ -34,17 +34,14 @@ export default function SignUp() {
         setSuccessMessage(data.message);
         setError(null);
         setLoading(false);
-
-        setTimeout(() => {
-          setSuccessMessage(null);
-          navigate('/sign-in');
-        }, 3000);
-
-      } else {
+      } 
+      
+      else {
         setError(data.message);
         setSuccessMessage(null);
         setLoading(false);
       }
+      
     } catch (error) {
       setError('An error occurred during signup.');
       setSuccessMessage(null);
@@ -70,7 +67,14 @@ export default function SignUp() {
         </Link>
       </div>
       {error && <p className='text-red-500 mt-5'>{error}</p>}
-      {successMessage && <p className='text-green-500 mt-5'>{successMessage}</p>}
+      {successMessage && (
+        <div className='flex flex-col items-center'>
+          <p className='text-green-500 mt-5'>{successMessage}</p>
+          <p className='mt-2 text-blue-500 cursor-pointer' onClick={() => navigate('/sign-in')}>
+            Click here to Sign In
+          </p>
+        </div>
+      )}    
     </div>
   );
 }
