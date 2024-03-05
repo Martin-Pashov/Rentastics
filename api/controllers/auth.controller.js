@@ -19,8 +19,18 @@ export const signup = async (req, res, next) => {
             return next(errorHandler(400, 'Missing required fields.'));
         }
 
-        const existingUser = await User.findOne({ email });
-        if (existingUser) {
+        const existingUsername = await User.findOne({ username });
+        const existingUserEmail = await User.findOne({ email });
+
+        if (existingUsername && existingUserEmail) {
+            return next(errorHandler(409, 'Username and email are already in use.'));
+        }
+
+        if (existingUsername) {
+            return next(errorHandler(409, 'Username is already in use.'));
+        }
+
+        if (existingUserEmail) {
             return next(errorHandler(409, 'Email is already in use.'));
         }
 

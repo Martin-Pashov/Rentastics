@@ -66,15 +66,18 @@ export default function SignUp() {
           Sign in
         </Link>
       </div>
-      {error && <p className='text-red-500 mt-5'>{error}</p>}
+      {error && (
+        <div className='text-red-500 mt-10 flex flex-col items-center'>
+          <p>{error}</p>
+        </div>
+      )}
+      
       {successMessage && (
         <div className='flex flex-col items-center'>
           <p className='text-green-500 mt-5'>{successMessage}</p>
-          <p className='mt-2 text-blue-500 cursor-pointer' onClick={() => navigate('/sign-in')}>
-            Click here to Sign In
-          </p>
+          <p className='mt-2 text-blue-500 cursor-pointer' onClick={() => navigate('/sign-in')}>Click here to Sign In</p>
         </div>
-      )}    
+      )}
     </div>
   );
 }
