@@ -34,7 +34,12 @@ export default function SignUp() {
         setSuccessMessage(data.message);
         setError(null);
         setLoading(false);
-        navigate('/sign-in');
+
+        setTimeout(() => {
+          setSuccessMessage(null);
+          navigate('/sign-in');
+        }, 3000);
+
       } else {
         setError(data.message);
         setSuccessMessage(null);
@@ -51,7 +56,6 @@ export default function SignUp() {
   return (
     <div className='p-3 max-w-lg mx-auto'>
       <h1 className='text-3xl font-semibold text-center mb-6 text-gray-800'>Sign Up</h1>
-      {successMessage && <p className='text-green-500 mt-5'>{successMessage}</p>}
       <form onSubmit={handleOnSubmit} className='flex flex-col gap-4'>
         <input type="text" placeholder='Username' className='border rounded-lg p-3 focus:outline-none focus:border-blue-500' id='username' onChange={handleChange}/>
         <input type="email" placeholder='Email' className='border rounded-lg p-3 focus:outline-none focus:border-blue-500' id='email' onChange={handleChange}/>
@@ -66,6 +70,7 @@ export default function SignUp() {
         </Link>
       </div>
       {error && <p className='text-red-500 mt-5'>{error}</p>}
+      {successMessage && <p className='text-green-500 mt-5'>{successMessage}</p>}
     </div>
   );
 }
