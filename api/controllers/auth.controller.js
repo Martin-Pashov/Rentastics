@@ -50,17 +50,21 @@ export const signup = async (req, res, next) => {
 
 
 export const signin = async (req, res, next) => {
-    const { email, password } = req.body;
-
     try {
+        const { email, password } = req.body;
+
+        if (!email || !password) {
+            return next(errorHandler(400, 'Missing required fields. Email and password are required.'));
+        }
+
         const validUser = await User.findOne({ email });
         if (!validUser) {
-            return next(errorHandler(404, 'User not found.'));
+            return next(errorHandler(404, 'User not found. Please check your email and password.'));
         }
 
         const isValidPassword = bcryptjs.compareSync(password, validUser.password);
         if (!isValidPassword) {
-            return next(errorHandler(401, 'Incorrect password.'));
+            return next(errorHandler(401, 'Incorrect email or password. Please try again.'));
         }
 
         const token = jwt.sign({ id: validUser._id}, process.env.JWT_SECRET);
@@ -72,7 +76,7 @@ export const signin = async (req, res, next) => {
     
     catch (error) {
         // Handle unexpected errors
-        next(errorHandler(500, 'An error occurred during sign-in.'));
+        next(errorHandler(500, 'An unexpected error occurred during sign-in.'));
         //next(error);
     }
 };
