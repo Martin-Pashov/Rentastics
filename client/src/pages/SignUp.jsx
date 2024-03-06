@@ -6,6 +6,7 @@ export default function SignUp() {
   const [error, setError] = useState(null);
   const [successMessage, setSuccessMessage] = useState(null);
   const [loading, setLoading] = useState(false);
+  const [accountCreated, setAccountCreated] = useState(false);
   const navigate = useNavigate();
 
   const handleChange = (e) => {
@@ -34,6 +35,7 @@ export default function SignUp() {
         setSuccessMessage(data.message);
         setError(null);
         setLoading(false);
+        setAccountCreated(true);
       } 
       
       else {
@@ -43,7 +45,7 @@ export default function SignUp() {
       }
       
     } catch (error) {
-      setError('An error occurred during signup.');
+      setError('An error occurred during sign-up.');
       setSuccessMessage(null);
       setLoading(false);
     }
@@ -60,24 +62,30 @@ export default function SignUp() {
         <button disabled={loading} className='bg-blue-500 text-white p-3 rounded-lg uppercase hover:opacity-95 disabled:opacity-80'>{loading ? 'Loading...' : 'Sign Up'}</button>
       </form>
 
-      <div className='flex items-center mt-6'>
-        <p className='mr-2 text-gray-600'>Have an account?</p>
-        <Link to='/sign-in' className='text-blue-500'>
-          Sign in
-        </Link>
-      </div>
-      {error && (
-        <div className='text-red-500 mt-10 flex flex-col items-center'>
-          <p>{error}</p>
-        </div>
-      )}
-      
-      {successMessage && (
+      {accountCreated && (
         <div className='flex flex-col items-center'>
           <p className='text-green-500 mt-5'>{successMessage}</p>
-          <p className='mt-2 text-blue-500 cursor-pointer' onClick={() => navigate('/sign-in')}>Click here to Sign In</p>
+          <p className='mt-2'>
+            Click here to <span className='text-blue-500 cursor-pointer' onClick={() => navigate('/sign-in')}>Sign In</span>
+          </p>
         </div>
       )}
+
+      <div>
+        {!accountCreated && (
+          <div className='flex items-center mt-6'>
+            <p className='mr-2 text-gray-600'>Have an account?</p>
+            <Link to='/sign-in' className='text-blue-500'>
+              Sign in
+            </Link>
+          </div>
+        )}
+        {error && (
+          <div className='text-red-500 mt-10 flex flex-col items-center'>
+            <p>{error}</p>
+          </div>
+        )}
+      </div>
     </div>
   );
 }
