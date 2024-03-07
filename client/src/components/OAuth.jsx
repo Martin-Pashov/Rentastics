@@ -1,8 +1,13 @@
 import React from 'react';
 import { GoogleAuthProvider, getAuth, signInWithPopup } from 'firebase/auth';
 import { app } from '../firebase';
+import { useDispatch } from 'react-redux';
+import { signInSuccess } from '../redux/user/userSlice';
+import { useNavigate } from 'react-router-dom';
 
 export default function OAuth() {
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
     const handleGoogleClick = async () => {
         try {
             const provider = new GoogleAuthProvider()
@@ -23,12 +28,20 @@ export default function OAuth() {
             })
 
             const data = await res.json()
-            
+            dispatch(signInSuccess(data));
+            navigate('/');
+
+        }
+        
+        catch (error) {
+            console.log('Could not sign in with Google', error);
+        }
+
 
             
             
             
-            
+        /*
             const isAuthenticated = res.status === 200;
 
             if (isAuthenticated) {
@@ -40,7 +53,7 @@ export default function OAuth() {
                 // Handle the case where authentication was not successful
                 console.error('Authentication with Google failed');
             }
-        } 
+        }
         
         catch (error) {
             if (error.response) {
@@ -58,6 +71,7 @@ export default function OAuth() {
                 console.error('An unexpected error occurred during Google authentication:', error.message);
             }
         }
+        */
     };
 
     return (
