@@ -27,15 +27,18 @@ export default function OAuth() {
                 }),
             })
 
-            const data = await res.json()
+            if (!res.ok) {
+                throw new Error(`Failed to authenticate with Google. Status: ${res.status}`);
+            }
+
+            const data = await res.json();
             dispatch(signInSuccess(data));
             navigate('/');
-
+        } catch (error) {
+            console.error('Error during Google authentication:', error.message);
+            // You can add further error handling or logging here
         }
-        
-        catch (error) {
-            console.log('Could not sign in with Google', error);
-        }
+    
 
 
             
