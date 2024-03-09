@@ -10,12 +10,12 @@ export default function Profile() {
         <input type="text" id="username" placeholder="username" className="border p-3 rounded-lg" />
         <input type="email" id="email" placeholder="email" className="border p-3 rounded-lg" />
         <input type="text" id="password" placeholder="password" className="border p-3 rounded-lg" />
-        <button className="bg-blue-500 text-white p-3 rounded-lg uppercase hover:opacity-95 disabled:opacity-80">update</button>
+        <button className="bg-blue-500 text-white p-3 rounded-lg uppercase hover:opacity-95 disabled:opacity-80">Update</button>
       </form>
 
       <div className="flex justify-between mt-5">
-        <span className="text-red-700 cursor-pointer">Delete account</span>
-        <span className="text-red-700 cursor-pointer">Sign out</span>
+        <span className="text-red-700 cursor-pointer">Delete Account</span>
+        <span className="text-red-700 cursor-pointer">Sign Out</span>
       </div>
     </div>
   )
