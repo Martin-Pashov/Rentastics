@@ -10,9 +10,6 @@ export default function Profile() {
   const [filePercentage, setFilePercentage] = useState(0);
   const [fileUploadError, setFileUploadError] = useState(false);
   const [formData, setFormData] = useState({});
-  console.log(formData);
-  console.log(filePercentage);
-  console.log(fileUploadError);
 
   useEffect(() => {
     if (file) {
@@ -48,7 +45,21 @@ export default function Profile() {
 
       <form className="flex flex-col gap-4">
         <input onChange={(e) => setFile(e.target.files[0])} type="file" ref={fileRef} hidden accept="image/*"/>
-        <img onClick={() => fileRef.current.click()} src={currentUser.avatar} alt="profile" className="rounded-full h-24 w-24 object-cover cursor-pointer self-center mt-2" />
+        <img onClick={() => fileRef.current.click()} src={formData.avatar || currentUser.avatar} alt="profile" className="rounded-full h-24 w-24 object-cover cursor-pointer self-center mt-2" />
+        
+        <p className="test-sm self-center">
+          {fileUploadError ? (
+            <span className="text-red-700">Error with image upload! Also the image should be less than 2 mb!</span>) : (
+            filePercentage > 0 && filePercentage < 100) ? (
+              <span className="text-black">{`Uploading ${filePercentage}% `}</span>
+            ) : (
+            filePercentage === 100) ? (
+              <span className="text-green-700">Image successfully  uploaded!</span>
+            ) : (
+            ''
+          )}
+        </p>
+        
         <input type="text" id="username" placeholder="username" className="border p-3 rounded-lg" />
         <input type="email" id="email" placeholder="email" className="border p-3 rounded-lg" />
         <input type="text" id="password" placeholder="password" className="border p-3 rounded-lg" />
