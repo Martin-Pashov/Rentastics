@@ -67,7 +67,7 @@ export default function Profile() {
         
         <input type="text" id="username" placeholder="username" defaultValue={currentUser.username} className="border p-3 rounded-lg" onChange={handleChange}/>
         <input type="email" id="email" placeholder="email" defaultValue={currentUser.email} className="border p-3 rounded-lg" onChange={handleChange}/>
-        <input type="text" id="password" placeholder="password" className="border p-3 rounded-lg" />
+        <input type="text" id="password" placeholder="password" className="border p-3 rounded-lg" onChange={handleChange}/>
         <button className="bg-blue-500 text-white p-3 rounded-lg uppercase hover:opacity-95 disabled:opacity-80">Update</button>
       </form>
 
