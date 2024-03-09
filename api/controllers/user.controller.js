@@ -36,3 +36,19 @@ export const updateUserInfo = async (request, response, next) => {
         next(error);
     }
 };
+
+
+export const deleteUser = async (request, response, next) => {
+    if (request.user.id !== request.params.id) {
+        return next(errorHandler(401, 'Unauthorized: You can only delete your own account.'))
+    }
+
+    try {
+        await User.findOneAndDelete(request.params.id);
+        response.status(200).json('Your account has been successfully deleted. We hope to see you again in the future!');
+    }
+
+    catch (error) {
+        next(error);
+    }
+}
