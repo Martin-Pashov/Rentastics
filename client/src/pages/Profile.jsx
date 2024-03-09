@@ -1,14 +1,19 @@
 import { useSelector } from "react-redux"
 import { useRef, useState, useEffect } from 'react'
-import { getStorage, ref, uploadBytesResumable } from 'firebase/storage'
+import { getDownloadURL, getStorage, ref, uploadBytesResumable } from 'firebase/storage'
 import { app } from "../firebase";
 
 export default function Profile() {
   const fileRef = useRef(null);
   const { currentUser } = useSelector((state) => state.user);
   const [file, setFile] = useState(undefined);
-  //console.log(file);
-  
+  const [filePercentage, setFilePercentage] = useState(0);
+  const [fileUploadError, setFileUploadError] = useState(false);
+  const [formData, setFormData] = useState({});
+  console.log(formData);
+  console.log(filePercentage);
+  console.log(fileUploadError);
+
   useEffect(() => {
     if (file) {
       handleFileUpload(file);
@@ -21,13 +26,21 @@ export default function Profile() {
     const storageRef = ref(storage, fileName)
     const uploadTask = uploadBytesResumable(storageRef, file);
 
-    uploadTask.on('state_changed', 
-      (snapshot) => {
+    uploadTask.on('state_changed', (snapshot) => {
         const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-        console.log("Upload is " + progress + '% done!');
+        setFilePercentage(Math.round(progress));
       },
-    )
-  }
+
+      (error) => {
+        setFileUploadError(true);
+      },
+
+      () => {
+        getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => setFormData({ ...formData, avatar: downloadURL }));
+      }
+    );
+  };
+
 
   return (
     <div className="p-3 max-w-lg mx-auto">
