@@ -1,8 +1,10 @@
 import logo from '../../public/images/logo.svg'
 import { FaSearch } from 'react-icons/fa'
 import { Link, useLocation } from 'react-router-dom'
+import { useSelector } from 'react-redux'
 
 export default function Header() {
+    const {currentUser} = useSelector(state => state.user)
     const location = useLocation();
     function pathMatchRoute(route) {
         if (route === location.pathname){
@@ -43,8 +45,12 @@ export default function Header() {
                 <li className={`text-md font-semibold text-gray-400 border-b-[3] border-b-transparent hidden sm:inline ${pathMatchRoute('/about') && 'text-black border-b-red-500'}`}>About</li>
                 </Link>
 
-                <Link to='/sign-in'>
-                <li className={`text-md font-semibold text-gray-400 border-b-[3] border-b-transparent ${pathMatchRoute('/sign-in') && 'text-black border-b-red-500'}`}>Sign In</li>
+                <Link to='/profile'> 
+                    {
+                        currentUser ? (
+                            <img className='rounded-full h-7 w-7 object-cover' src={currentUser.avatar} alt="" />
+                        ): <li className={`text-md font-semibold text-gray-400 border-b-[3] border-b-transparent ${pathMatchRoute('/sign-in') && 'text-black border-b-red-500'}`}>Sign In</li>
+                    }
                 </Link>
             </ul>
         </div>
