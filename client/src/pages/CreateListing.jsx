@@ -7,6 +7,7 @@ export default function CreateListing() {
     const [formData, setFormData] = useState({imageUrls: []});
     const [imageUploadError, setImageUploadError] = useState(false);
     const [uploading, setUploading] = useState(false);
+    const [fileNames, setFileNames] = useState([]);
 
     console.log(formData);
 
@@ -40,9 +41,11 @@ export default function CreateListing() {
     const storeImage = async (file) => {
         return new Promise((resolve, reject) => {
             const storage = getStorage(app);
-            const fileName = new Date().getTime() + file.name;
+            const fileName = new Date().getTime() + file.name;            
             const storageRef = ref(storage, fileName);
             const uploadTask = uploadBytesResumable(storageRef, file);
+            
+            setFileNames(() => [file.name]);
 
             uploadTask.on(
                 "state_changed",
@@ -150,6 +153,9 @@ export default function CreateListing() {
                         formData.imageUrls.length > 0 && formData.imageUrls.map((url, index) => (
                             <div key={url} className='flex justify-between p-3 border items-center'>
                                 <img src={url} alt="listing image" className='w-20 h-20 object-contain rounded-lg'/>
+                                    <div>
+                                        <p>{fileNames[index]}</p>
+                                    </div>
                                 <button type="button" onClick={()=>handleRemoveImage(index)} className='p-3 text-red-500 rounded-lg uppercase hover:opacity-75'>Remove</button>
                             </div>
                         ))
