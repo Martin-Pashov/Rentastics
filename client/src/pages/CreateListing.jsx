@@ -4,14 +4,13 @@ import { app } from '../firebase';
 
 export default function CreateListing() {
     const [files, setFiles] = useState([]);
-    const [formData, setFormData] = useState({
-        imageUrls: [],
-    });
+    const [formData, setFormData] = useState({imageUrls: []});
+    const [imageUploadError, setImageUploadError] = useState(false);
 
     console.log(formData);
 
     const handleImageSubmit = (e) => {
-        if (files.length > 0 && files.length < 7) {
+        if (files.length > 0 && files.length + formData.imageUrls.length < 7) {
             const promises = [];
 
             for (let i = 0; i < files.length; i++) {
@@ -20,7 +19,14 @@ export default function CreateListing() {
 
             Promise.all(promises).then((urls) => {
                 setFormData({ ...formData, imageUrls: formData.imageUrls.concat(urls) });
+                setImageUploadError(false);
+            }).catch((error) => {
+                setImageUploadError('Failed to upload image. Please ensure each image is no larger than 2MB.');
             });
+        } 
+
+        else {
+            setImageUploadError('You can upload a maximum of 6 images for each listing. Please remove any excess images.');
         }
     };
 
@@ -123,6 +129,7 @@ export default function CreateListing() {
                         <button type='button' onClick={handleImageSubmit} className='p-3 text-green-700 border border-green-700 rounded uppercase hover:shadow-lg disabled:opacity-80'>Upload</button>
                     </div>
 
+                    <p className='text-red-700'>{imageUploadError && imageUploadError}</p>
                     <button className='p-3 bg-green-500 text-white rounded-lg uppercase hover:opacity-95 disabled:opacity-80'>Create Listing</button>
                 </div>
             </form>
