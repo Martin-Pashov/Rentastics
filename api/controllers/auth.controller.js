@@ -112,3 +112,15 @@ export const google = async (req, res, next) => {
         next(error);
     }
 }
+
+
+export const signOut = async (request, response, next) => {
+    try {
+      response.clearCookie('access_token');
+      response.status(200).json('User session has been terminated.');
+    } 
+    
+    catch (error) {
+      next(error);
+    }
+  };
