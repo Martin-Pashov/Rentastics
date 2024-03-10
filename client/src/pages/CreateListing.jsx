@@ -51,9 +51,17 @@ export default function CreateListing() {
                         resolve(downloadURL);
                     });
                 }
-            )
+            );
         });
-    }
+    };
+
+    const  handleRemoveImage = (index) => {
+        setFormData({
+            ...formData,
+            imageUrls: formData.imageUrls.filter((_, i) => i !== index),
+        })
+    };
+
 
     return (
         <main className='p-6 max-w-4xl mx-auto'>
@@ -130,6 +138,15 @@ export default function CreateListing() {
                     </div>
 
                     <p className='text-red-700'>{imageUploadError && imageUploadError}</p>
+                    {
+                        formData.imageUrls.length > 0 && formData.imageUrls.map((url, index) => (
+                            <div key={url} className='flex justify-between p-3 border items-center'>
+                                <img src={url} alt="listing image" className='w-20 h-20 object-contain rounded-lg'/>
+                                <button type="button" onClick={()=>handleRemoveImage(index)} className='p-3 text-red-500 rounded-lg uppercase hover:opacity-75'>Remove</button>
+                            </div>
+                        ))
+                    }
+
                     <button className='p-3 bg-green-500 text-white rounded-lg uppercase hover:opacity-95 disabled:opacity-80'>Create Listing</button>
                 </div>
             </form>
