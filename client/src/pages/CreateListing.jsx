@@ -36,6 +36,35 @@ export default function CreateListing() {
                         <span className='w-5'>Offer</span>
                     </div>
                 </div>
+
+
+                <div className='flex flex-wrap gap-6'>
+                    <div className='flex items-center gap-2'>
+                        <input type='number' id='bedrooms' min='1' max='20' required className='p-3 border border-gray-300 rounded-lg'/>
+                        <p>Bedrooms</p>
+                    </div>
+
+                    <div className='flex items-center gap-2'>
+                        <input type='number' id='bathrooms' min='1' max='20' required className='p-3 border border-gray-300 rounded-lg'/>
+                        <p>Bathrooms</p>
+                    </div>
+
+                    <div className='flex items-center gap-2'>
+                        <input type='number' id='regularPrice' min='1' max='10' required className='p-3 border border-gray-300 rounded-lg'/>
+                        <div className='flex flex-col items-center'>
+                            <p>Regular Price</p>
+                            <span className='text-xs'>($ / month)</span>
+                        </div>
+                    </div>
+
+                    <div className='flex items-center gap-2'>
+                        <input type='number' id='discountedPrice' min='1' max='10' required className='p-3 border border-gray-300 rounded-lg'/>
+                        <div className='flex flex-col items-center'>
+                            <p>Discounted Price</p>
+                            <span className='text-xs'>($ / month)</span>
+                        </div>
+                    </div>
+                </div>
             </div>
         </form>
     </main>
