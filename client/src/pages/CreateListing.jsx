@@ -6,11 +6,15 @@ export default function CreateListing() {
     const [files, setFiles] = useState([]);
     const [formData, setFormData] = useState({imageUrls: []});
     const [imageUploadError, setImageUploadError] = useState(false);
+    const [uploading, setUploading] = useState(false);
 
     console.log(formData);
 
     const handleImageSubmit = (e) => {
         if (files.length > 0 && files.length + formData.imageUrls.length < 7) {
+            setUploading(true);
+            setImageUploadError(false);
+
             const promises = [];
 
             for (let i = 0; i < files.length; i++) {
@@ -20,13 +24,16 @@ export default function CreateListing() {
             Promise.all(promises).then((urls) => {
                 setFormData({ ...formData, imageUrls: formData.imageUrls.concat(urls) });
                 setImageUploadError(false);
+                setUploading(false);
             }).catch((error) => {
                 setImageUploadError('Failed to upload image. Please ensure each image is no larger than 2MB.');
+                setUploading(false);
             });
         } 
 
         else {
             setImageUploadError('You can upload a maximum of 6 images for each listing. Please remove any excess images.');
+            setUploading(false);
         }
     };
 
@@ -134,10 +141,11 @@ export default function CreateListing() {
 
                     <div className="flex gap-4">
                         <input onChange={(e)=>setFiles(e.target.files)} className='p-3 border border-gray-300 rounded w-full' type="file" id='images' accept='image/*' multiple />
-                        <button type='button' onClick={handleImageSubmit} className='p-3 text-green-700 border border-green-700 rounded uppercase hover:shadow-lg disabled:opacity-80'>Upload</button>
+                        <button type='button' disabled={uploading} onClick={handleImageSubmit} className='p-3 text-green-700 border border-green-700 rounded uppercase hover:shadow-lg disabled:opacity-80'>{uploading ? 'Uploading...' : 'Upload'}</button>
                     </div>
 
                     <p className='text-red-700'>{imageUploadError && imageUploadError}</p>
+                    
                     {
                         formData.imageUrls.length > 0 && formData.imageUrls.map((url, index) => (
                             <div key={url} className='flex justify-between p-3 border items-center'>
