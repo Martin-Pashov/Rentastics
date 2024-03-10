@@ -142,7 +142,7 @@ export default function Profile() {
         <input type="text" id="username" placeholder="username" defaultValue={currentUser.username} className="border p-3 rounded-lg" onChange={handleChange}/>
         <input type="email" id="email" placeholder="email" defaultValue={currentUser.email} className="border p-3 rounded-lg" onChange={handleChange}/>
         <input type="password" id="password" placeholder="password" className="border p-3 rounded-lg" onChange={handleChange}/>
-        <button disabled={loading} className="bg-blue-500 text-white p-3 rounded-lg uppercase hover:opacity-95 disabled:opacity-80">{loading ? 'Loading...' : 'Update'}</button>
+        <button disabled={loading} className="bg-blue-500 text-white p-3 rounded-lg uppercase hover:opacity-95 disabled:opacity-80">{loading ? 'Processing Sign Out...' : 'Confirm Update'}</button>
       </form>
 
       <div className="flex justify-between mt-5">
