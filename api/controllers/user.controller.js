@@ -1,6 +1,7 @@
 import { errorHandler } from "../utils/error.js";
 import bcryptjs from "bcryptjs";
 import User from '../models/user.model.js';
+import Listing from "../models/listing.model.js";
 
 export const test = (request, response) => {
     response.json({
@@ -51,5 +52,23 @@ export const deleteUser = async (request, response, next) => {
 
     catch (error) {
         next(error);
+    }
+};
+
+
+export const getUserListings = async (request, response, next) => {
+    if (request.user.id === request.params.id) {
+        try {
+            const listings = await Listing.find({ userRef: request.params.id })
+            response.status(200).json(listings);
+        }
+
+        catch (error) {
+            next(error);
+        }
+    }
+
+    else {
+        return next(errorHandler(401, 'Unauthorized: You are only allowed to view your own listings. Access to other listings is restricted.'));
     }
 }
