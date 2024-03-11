@@ -14,6 +14,7 @@ export default function Profile() {
   const [fileUploadError, setFileUploadError] = useState(false);
   const [formData, setFormData] = useState({});
   const [updateSuccess, setUpdateSuccess] = useState(false);
+  const [showListingsError, setShowListingsError] = useState(false);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -116,7 +117,19 @@ export default function Profile() {
     catch (error) {
       dispatch(deleteUserFailure(data.message));
     }
-  }
+  };
+
+
+  const handleShowListings = async () => {
+    try {
+
+    }
+
+    catch (error) {
+      showListingsError(true);
+    }
+  };
+
 
 
   return (
@@ -154,6 +167,8 @@ export default function Profile() {
 
       <p className="text-red-700 mt-5">{error ? error : ''}</p>
       <p className="text-green-700 mt-5">{updateSuccess ? 'Your profile was successfully updated. Changes have been saved.' : ''}</p>
+      <button onClick={handleShowListings} className="test-green-700 w-full">Show Listings</button>
+      <p className='text-red-700 mt-5'>{showListingsError ? 'Error showing listings' : ''}</p>
     </div>
   );
 }
