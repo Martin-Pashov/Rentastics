@@ -1,8 +1,10 @@
 import { getDownloadURL, getStorage, uploadBytesResumable, ref } from 'firebase/storage';
 import { useState } from 'react'
 import { app } from '../firebase';
+import { useSelector } from 'react-redux';
 
 export default function CreateListing() {
+    const { currentUser } = useSelector((state) => state.user);
     const [files, setFiles] = useState([]);
     const [formData, setFormData] = useState({
         imageUrls: [],
@@ -21,10 +23,13 @@ export default function CreateListing() {
     const [imageUploadError, setImageUploadError] = useState(false);
     const [uploading, setUploading] = useState(false);
     const [fileNames, setFileNames] = useState([]);
+    const [error, setError] = useState(false);
+    const [loading, setLoading] = useState(false);
+    
 
     console.log(formData);
 
-    
+
     const handleImageSubmit = (e) => {
         if (files.length > 0 && files.length + formData.imageUrls.length < 7) {
             setUploading(true);
@@ -89,12 +94,61 @@ export default function CreateListing() {
         if (e.target.id === 'sale' || e.target.id === 'rent') {
             setFormData({...formData, type: e.target.id});
         }
+
+        if (e.target.id === 'parking' || e.target.id === 'furnished' || e.target.id === 'offer') {
+            setFormData({...formData, [e.target.id]: e.target.checked});
+        }
+
+        if (e.target.type === 'number' || e.target.type === 'text' || e.target.type === 'textarea') {
+            setFormData({...formData, [e.target.id]: e.target.value});
+        }
     };
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+
+        if (formData.imageUrls.length < 1) {
+            return setError('Listing creation requires at least one uploaded image. Please add an image to proceed.')
+        }
+
+        if (+formData.regularPrice < +formData.discountPrice) {
+            return setError('The discounted price should be less than the regular price. Please adjust and try again.');
+        }
+
+        try {
+            setLoading(true);
+            setError(false);
+            
+            const response = await fetch('/api/listing/create', {
+                method: 'POST',
+                headers: {
+                  'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    ...formData,
+                    userRef: currentUser._id,
+                }),
+            });
+
+            const data = await response.json();
+            setLoading(false);
+
+            if (data.success === false) {
+                setError(data.message);
+            }
+        }
+
+        catch (error) {
+            setError(error.message);
+            setLoading(false);
+        }
+    }
+
 
     return (
         <main className='p-6 max-w-4xl mx-auto'>
             <h1 className='text-4xl font-semibold text-center mb-8'>Create a New Listing</h1>
-            <form className='flex flex-col sm:flex-row gap-8'>
+            <form onSubmit={handleSubmit} className='flex flex-col sm:flex-row gap-8'>
                 <div className='flex flex-col gap-4 flex-1'>
                     <input type='text' placeholder='Property Name' className='border p-3 rounded-lg' id='name' maxLength='62' minLength='10' required onChange={handleChange} value={formData.name}/>
                     <textarea type='text' placeholder='Property Description' className='border p-3 rounded-lg h-32' id='description' maxLength='5000' minLength='10' required onChange={handleChange} value={formData.description}/>
@@ -147,7 +201,7 @@ export default function CreateListing() {
                         </div>
 
                         <div className='flex items-center gap-2'>
-                            <input type='number' id='discountPrice' min='1' max='10' required className='p-3 border border-gray-300 rounded-lg w-24' onChange={handleChange} value={formData.discountPrice}/>
+                            <input type='number' id='discountPrice' min='0' max='100000000000000' required className='p-3 border border-gray-300 rounded-lg w-24' onChange={handleChange} value={formData.discountPrice}/>
                             <div className='flex flex-col items-center'>
                                 <p>Discounted Price</p>
                                 <span className='text-xs'>($/month)</span>
@@ -179,7 +233,8 @@ export default function CreateListing() {
                         ))
                     }
 
-                    <button className='p-3 bg-green-500 text-white rounded-lg uppercase hover:opacity-95 disabled:opacity-80'>Create Listing</button>
+                    <button className='p-3 bg-green-500 text-white rounded-lg uppercase hover:opacity-95 disabled:opacity-80'>{loading ? 'Creating...' : 'Create Listing'}</button>
+                    {error && <p className='text-red-700'>{error}</p>}
                 </div>
             </form>
         </main>
