@@ -32,4 +32,31 @@ export const deleteListing = async (request, response, next) => {
     catch (error) {
         next(error);
     }
+};
+
+
+export const updateListing = async (request, response, next) => {
+    const listing = await Listing.findById(request.params.id);
+
+    if (!listing) {
+        return next(errorHandler(404, 'Listing not found!'));
+    }
+
+    if (request.user.id !== listing.userRef) {
+        return next(errorHandler(401, 'You are not allowed to update listings that are not created by you!'));
+    }
+
+    try {
+        const updatedListing = await Listing.findByIdAndUpdate(
+            request.params.id, 
+            request.body,  
+            { new: true }
+        );
+
+        response(200).json(updatedListing);
+    }
+
+    catch (error) {
+        next(error);
+    }
 }

@@ -208,7 +208,7 @@ export default function Profile() {
         <input type="email" id="email" placeholder="email" defaultValue={currentUser.email} className="border p-3 rounded-lg" onChange={handleChange}/>
         <input type="password" id="password" placeholder="password" className="border p-3 rounded-lg" onChange={handleChange}/>
         <button disabled={loading} className="bg-blue-500 text-white p-3 rounded-lg uppercase hover:opacity-95 disabled:opacity-80">{loading ? 'Loading...' : 'Confirm Update'}</button>
-        <Link className="bg-green-500 text-white p-3 rounded-lg uppercase text-center hover:opacity-95" to={"/create-listing"}>Create Listing</Link>
+        <Link className="bg-green-500 text-white p-3 rounded-lg uppercase text-center hover:opacity-95" to={"/create-listing"}>Create A Listing</Link>
       </form>
 
       <div className="flex justify-between mt-5">
@@ -249,8 +249,8 @@ export default function Profile() {
               </Link>
 
               <div className='flex flex-col item-center'>
-                <button onClick={()=>handleListingDelete(listing._id)} className='text-red-700 uppercase'>Delete</button>
-                <button className='text-green-700 uppercase'>Edit</button>
+                <button onClick={()=>handleListingDelete(listing._id)} className='justify-center p-3 text-red-700 border-red-700 rounded uppercase hover:shadow-lg disabled:opacity-80 w-50% mx-auto'>Delete</button>
+                <button className='justify-center p-3 text-green-700 border-green-700 rounded uppercase hover:shadow-lg disabled:opacity-80 w-50% mx-auto'>Edit</button>
               </div>
             </div>
         ))}
