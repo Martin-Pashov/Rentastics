@@ -29,11 +29,19 @@ export default function UpdateListing() {
     const [error, setError] = useState(false);
     const [loading, setLoading] = useState(false);
 
-    useEffect(async() => {
+    useEffect(() => {
         const fetchListing = async () => {
             const listingId = params.listingId;
-            console.log(`Listing id is ${listingId}`);
-        }
+            const response = await fetch(`/api/listing/get/${listingId}`);
+            const data = await response.json();
+
+            if (data.success === false) {
+              console.log(data.message);
+              return;
+            }
+
+            setFormData(data);
+          };
 
         fetchListing();
     }, []);
@@ -115,19 +123,19 @@ export default function UpdateListing() {
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        if (formData.imageUrls.length < 1) {
-            return setError('Listing creation requires at least one uploaded image. Please add an image to proceed.')
-        }
-
-        if (+formData.regularPrice < +formData.discountPrice) {
-            return setError('The discounted price should be less than the regular price. Please adjust and try again.');
-        }
-
         try {
+            if (formData.imageUrls.length < 1) {
+                return setError('Listing creation requires at least one uploaded image. Please add an image to proceed.')
+            }
+    
+            if (+formData.regularPrice < +formData.discountPrice) {
+                return setError('The discounted price should be less than the regular price. Please adjust and try again.');
+            }
+
             setLoading(true);
             setError(false);
             
-            const response = await fetch('/api/listing/create', {
+            const response = await await fetch(`/api/listing/update/${params.listingId}`, {
                 method: 'POST',
                 headers: {
                   'Content-Type': 'application/json',
