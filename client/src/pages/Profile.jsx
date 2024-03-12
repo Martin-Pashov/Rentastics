@@ -16,6 +16,10 @@ export default function Profile() {
   const [updateSuccess, setUpdateSuccess] = useState(false);
   const [showListingsError, setShowListingsError] = useState(false);
   const [userListings, setUserListings] = useState([]);
+  const [deleteSuccess, setDeleteSuccess] = useState(false);
+  const [deleteError, setDeleteError] = useState(false);
+  const [showListingsClicked, setShowListingsClicked] = useState(false);
+  const [showListingsMessage, setShowListingsMessage] = useState('');
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -23,7 +27,20 @@ export default function Profile() {
       handleFileUpload(file);
     }
   }, [file]);
+
+
+  useEffect(() => {
+    let timeout;
+    if (deleteSuccess || deleteError) {
+      timeout = setTimeout(() => {
+        setDeleteSuccess(false);
+        setDeleteError(false);
+      }, 3000);
+    }
+    return () => clearTimeout(timeout);
+  }, [deleteSuccess, deleteError]);
   
+
   const handleFileUpload = (file) => {
     const storage = getStorage(app);
     const fileName = new Date().getTime() + file.name;
@@ -131,6 +148,12 @@ export default function Profile() {
       }
 
       setUserListings(data);
+      if (data.length === 0) {
+        setShowListingsMessage("You haven't created any listings yet.");
+        setTimeout(() => {
+          setShowListingsMessage('');
+        }, 3000);
+      }
     }
 
     catch (error) {
@@ -151,10 +174,12 @@ export default function Profile() {
       }
 
       setUserListings((prev) => prev.filter((listing) => listing._id !== listingId));
+      setDeleteSuccess(true);
     } 
 
     catch (error) {
       console.log(error.message);
+      setDeleteError(true);
     }
   }
 
@@ -193,8 +218,22 @@ export default function Profile() {
 
       <p className="text-red-700 mt-5">{error ? error : ''}</p>
       <p className="text-green-700 mt-5">{updateSuccess ? 'Your profile was successfully updated. Changes have been saved.' : ''}</p>
-      <button onClick={handleShowListings} className="flex flex-col items-center justify-center p-3 text-green-700 border border-green-700 rounded uppercase hover:shadow-lg disabled:opacity-80 w-50% mx-auto">Show Listings</button>
-      <p className='text-red-700 mt-5'>{showListingsError ? 'Error showing listings' : ''}</p>
+      <button onClick={() => {handleShowListings(); setShowListingsClicked(true);}} className="flex flex-col items-center justify-center p-3 text-green-700 border border-green-700 rounded uppercase hover:shadow-lg disabled:opacity-80 w-50% mx-auto">Show Listings</button>
+      
+        {showListingsClicked && (
+          <div>
+            {userListings.length === 0 && (
+              <p className="text-center text-red-700 mt-5">{showListingsMessage}</p>
+            )}
+          </div>
+        )}
+
+      <div className="flex justify-center">
+        <p className='text-red-700 mt-5'>{showListingsError ? 'Error showing listings' : ''}</p>
+        <p className='text-green-700 mt-5 self-center'>{deleteSuccess ? 'Listing successfully deleted!' : ''}</p>
+        <p className='text-red-700 mt-5'>{deleteError ? 'Error deleting listing' : ''}</p>
+      </div>
+      
 
       {userListings && userListings.length > 0 &&
         <div className="flex flex-col gap-4">
