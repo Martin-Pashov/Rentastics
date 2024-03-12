@@ -1,5 +1,5 @@
 import Listing from "../models/listing.model.js";
-import { errorHandler } from "../utils/error.js";
+import { errorHandler } from '../utils/error.js';
 
 export const createListing = async (request, response, next) => {
     try {
@@ -53,10 +53,10 @@ export const updateListing = async (request, response, next) => {
             { new: true }
         );
 
-        response(200).json(updatedListing);
+        response.status(200).json(updatedListing);
     }
 
     catch (error) {
         next(error);
     }
-}
+};
