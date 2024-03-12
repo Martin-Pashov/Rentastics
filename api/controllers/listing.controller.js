@@ -13,14 +13,23 @@ export const createListing = async (request, response, next) => {
 };
 
 
-export const deleteListingListing = async (request, response, next) => {
+export const deleteListing = async (request, response, next) => {
     const listing = await Listing.findById(request.params.id);
 
     if (!listing) {
         return next(errorHandler(404, 'Listing not found!'));
     }
 
-    if (request.id === listing.userRef.toString()) {
+    if (request.id === listing.userRef) {
         return next(errorHandler(401, 'You can only delete a listing that is created by you!'));
+    }
+
+    try {
+        await Listing.findByIdAndDelete(request.params.id);
+        response.status(200).json('The listing has been successfully deleted!')
+    }
+
+    catch (error) {
+        next(error);
     }
 }
