@@ -11,6 +11,8 @@ import Header from './components/Header';
 import PrivateRoute from './components/PrivateRoute';
 import CreateListing from './pages/CreateListing';
 import UpdateListing from './pages/UpdateListing';
+import PageNotFound from './pages/errors/PageNotFound';
+
 
 export default function App() {
   return (
@@ -29,6 +31,8 @@ export default function App() {
       </Route>
 
       <Route path='/offers' element={<Offers />} />
+
+      <Route path="*" element={<PageNotFound />} />
     </Routes>
   </BrowserRouter>
   )
