@@ -8,7 +8,7 @@ import powImage from '../../public/images/pow.svg';
 
 export default function Listing() {
     SwiperCore.use([Navigation]);
-    
+
     const params = useParams();
     const Navigate = useNavigate();
     const [listing, setListing] = useState(null);
@@ -78,9 +78,16 @@ export default function Listing() {
             )}
 
             {listing && !loading && !error && (
-                <h1>{listing.name}</h1>
+                <div>
+                    <Swiper navigation>
+                        {listing.imageUrls.map((url) => (
+                            <SwiperSlide key={url}>
+                                <div className='h-[500px]' style={{background: `url(${url}) center no-repeat`, backgroundSize: 'cover'}}></div>
+                            </SwiperSlide>
+                        ))}
+                    </Swiper>
+                </div>
             )}
         </main>
-
     )
 }
