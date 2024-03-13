@@ -4,20 +4,32 @@ import { useParams } from 'react-router-dom'
 export default function Listing() {
     const params = useParams();
     const [listing, setListing] = useState(null);
-    const [loading, setLoading] = useState(false);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(false);
 
     useEffect(() => {
         const fetchListing = async () => {
-            const response = await fetch(`/api/listing/get/${params.listingId}`);
-            const data = await response.json();
+            try {
+                setLoading(true);
+                const response = await fetch(`/api/listing/get/${params.listingId}`);
+                const data = await response.json();
 
-            if (data.success === false) {
-                return;
+                if (data.success === false) {
+                    setError(true);
+                    setLoading(false);
+                    return;
+                }
+
+                setListing(data)
+            } 
+            
+            catch (error) {
+                setError(true);
+                setLoading(false);
             }
-
-            setListing(data)
         }
-    })
+    });
+
 
   return (
     <div>
