@@ -249,10 +249,10 @@ export default function Profile() {
               </Link>
 
               <div className='flex flex-col item-center'>
-                <button onClick={()=>handleListingDelete(listing._id)} className='justify-center p-3 text-red-700 border-red-700 rounded uppercase hover:shadow-lg disabled:opacity-80 w-50% mx-auto'>Delete</button>
                 <Link to={`/update-listing/${listing._id}`}>
-                  <button className='justify-center p-3 text-green-700 border-green-700 rounded uppercase hover:shadow-lg disabled:opacity-80 w-50% mx-auto'>Edit</button>
+                  <button className="flex flex-col items-center justify-center p-3 text-green-700 border border-green-700 rounded uppercase hover:shadow-lg disabled:opacity-80 w-50% mx-auto">Edit</button>
                 </Link>
+                <button onClick={()=>handleListingDelete(listing._id)} className="flex flex-col items-center justify-center mt-2 p-3 text-red-700 border border-red-700 rounded uppercase hover:shadow-lg disabled:opacity-80 w-50% mx-auto">Delete</button>
               </div>
             </div>
         ))}

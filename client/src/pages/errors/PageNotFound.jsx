@@ -23,7 +23,7 @@ export default function PageNotFound() {
                 <div className="ml-6">
                     <p className="text-2xl md:text-3xl font-semibold leading-normal">Sorry we couldn't find this page.</p>
                     <p className="text-lg mb-6 text-gray-600">But don't worry, you can find plenty of other things on our homepage.</p>
-                    <button className="bg-blue-500 text-white px-6 py-3 rounded hover:bg-blue-700" onClick={() => Navigate('/')}>Back to Home</button>
+                    <button className="flex flex-col items-center justify-center p-3 text-blue-700 border border-blue-700 rounded uppercase hover:shadow-lg disabled:opacity-80 w-50% mx-auto" onClick={() => Navigate('/')}>Back to Home</button>
                 </div>
             </div>
         </div>
