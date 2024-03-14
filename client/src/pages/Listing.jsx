@@ -107,7 +107,7 @@ export default function Listing() {
                         }}/>
                     </div>
 
-                    {copied && (<p className='fixed top-[23%] right-[5%] z-10 rounded-md bg-slate-100 p-2'>Link copied!</p>)}
+                    {copied && (<p className='fixed top-[23%] right-[5%] z-10 rounded-md bg-slate-100 p-2'>URL copied successfully.</p>)}
 
                     <div className='flex flex-col max-w-4xl mx-auto p-3 my-7 gap-4'>
                         <p className='text-2xl font-semibold'>
@@ -130,8 +130,13 @@ export default function Listing() {
                         </div>
 
                         <p className='text-slate-800'>
-                            <span className='font-semibold text-black'>Description - </span>
-                            {listing.description}
+                        <span className='font-semibold text-black'>Property Description:</span><br />
+                            {listing.description.split('\n').map((paragraph, index) => (
+                                <React.Fragment key={index}>
+                                    {paragraph}<br className="mb-0" />
+                                    {index < listing.description.split('\n').length - 1 && <br style={{ lineHeight: '0.1em' }} />} {/* Add a <br /> tag if it's not the last paragraph */}
+                                </React.Fragment>
+                            ))}
                         </p>
 
                         <ul className='text-green-900 font-semibold text-sm flex flex-wrap items-center gap-4 sm:gap-6'>
