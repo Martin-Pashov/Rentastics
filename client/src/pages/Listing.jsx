@@ -8,7 +8,6 @@ import {
     FaBath,
     FaBed,
     FaChair,
-    FaMapMarkedAlt,
     FaMapMarkerAlt,
     FaParking,
     FaShare,
@@ -112,7 +111,7 @@ export default function Listing() {
                     <div className='flex flex-col max-w-4xl mx-auto p-3 my-7 gap-4'>
                         <p className='text-2xl font-semibold'>
                             {listing.name} - ${' '}
-                            {listing.offer ? listing.discountPrice.toLocaleString('en-US') : listing.regularPrice.toLocaleString('en-US')}
+                            {listing.offer ? listing.discountedPrice.toLocaleString('en-US') : listing.regularPrice.toLocaleString('en-US')}
                             {listing.type === 'rent' && ' / month'}
                         </p>
 
@@ -126,15 +125,15 @@ export default function Listing() {
                                 {listing.type === 'rent' ? 'For Rent' : 'For Sale'}
                             </p>
 
-                            {listing.offer && (<p className='bg-green-900 w-full max-w-[200px] text-white text-center p-1 rounded-md'>${+listing.regularPrice - +listing.discountPrice}</p>)}
+                            {listing.offer && (<p className='bg-green-900 w-full max-w-[200px] text-white text-center p-1 rounded-md'>${+listing.regularPrice - +listing.discountedPrice}</p>)}
                         </div>
 
                         <p className='text-slate-800'>
-                        <span className='font-semibold text-black'>Property Description:</span><br />
+                        <span className='font-semibold text-black text-lg'>Property Description:</span><br />
                             {listing.description.split('\n').map((paragraph, index) => (
                                 <React.Fragment key={index}>
                                     {paragraph}<br className="mb-0" />
-                                    {index < listing.description.split('\n').length - 1 && <br style={{ lineHeight: '0.1em' }} />} {/* Add a <br /> tag if it's not the last paragraph */}
+                                    {index < listing.description.split('\n').length - 1 && <br />}
                                 </React.Fragment>
                             ))}
                         </p>

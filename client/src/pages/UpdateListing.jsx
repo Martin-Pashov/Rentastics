@@ -18,7 +18,7 @@ export default function UpdateListing() {
         bedrooms: 1,
         bathrooms: 1,
         regularPrice: 150,
-        discountPrice: 0,
+        discountedPrice: 0,
         offer: false,
         parking: false,
         furnished: false,
@@ -128,7 +128,7 @@ export default function UpdateListing() {
                 return setError('Listing creation requires at least one uploaded image. Please add an image to proceed.')
             }
     
-            if (+formData.regularPrice < +formData.discountPrice) {
+            if (+formData.regularPrice < +formData.discountedPrice) {
                 return setError('The discounted price should be less than the regular price. Please adjust and try again.');
             }
 
@@ -222,7 +222,7 @@ export default function UpdateListing() {
 
                         {formData.offer && (
                             <div className='flex items-center gap-2'>
-                                <input type='number' id='discountPrice' min='0' max='100000000000000' required className='p-3 border border-gray-300 rounded-lg w-24' onChange={handleChange} value={formData.discountPrice}/>
+                                <input type='number' id='discountedPrice' min='0' max='100000000000000' required className='p-3 border border-gray-300 rounded-lg w-24' onChange={handleChange} value={formData.discountedPrice}/>
                                 <div className='flex flex-col items-center'>
                                     <p>Discounted Price</p>
                                     {formData.type === 'rent' && (
