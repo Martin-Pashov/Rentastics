@@ -3,6 +3,7 @@ import { Navigate, useNavigate, useParams } from 'react-router-dom';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import SwiperCore from 'swiper';
 import { Navigation } from 'swiper/modules';
+import { useSelector } from 'react-redux';
 import 'swiper/css/bundle';
 import {
     FaBath,
@@ -23,6 +24,9 @@ export default function Listing() {
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(false);
     const [copied, setCopied] = useState(false);
+    const currentUser = useSelector((state) => state.user.currentUser);
+
+    console.log(currentUser._id, listing?.userRef);
 
     useEffect(() => {
         // Disable scrolling on mount if there's an error
@@ -160,6 +164,9 @@ export default function Listing() {
                                 {listing.furnished ? 'Furnished' : 'Unfurnished'}
                             </li>
                         </ul>
+                        {currentUser && listing.userRef !== currentUser._id && (
+                            <button className='p-3 text-blue-700 border border-blue-700 rounded uppercase hover:shadow-lg disabled:opacity-80'>Contact Landlord</button>
+                        )}
                     </div>
                 </div>
             )}
