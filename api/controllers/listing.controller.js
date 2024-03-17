@@ -79,5 +79,22 @@ export const getListing = async (request, response, next) => {
 
 
 export const getListings = async (request, response, next) => {
+    try {
+        const limit = parseInt(request.query.limit) || 9;
+        const startIndex = parseInt(request.query.startIndex) || 0;
+        
+        let offer = request.query.offer;
+        if (offer === 'undefined' || offer === 'false') {
+            offer = { $in: [false, true] };
+        }
+
+        let furnished = request.query.furnished;
+        if (furnished === 'undefined' || furnished === 'false') {
+            furnished = { $in: [false, true] };
+        }
+    } 
     
+    catch (error) {
+        next(error);
+    }
 }
