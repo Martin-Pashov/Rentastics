@@ -24,9 +24,8 @@ export default function Listing() {
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(false);
     const [copied, setCopied] = useState(false);
+    const [contact, setContact] = useState(false);
     const currentUser = useSelector((state) => state.user.currentUser);
-
-    console.log(currentUser._id, listing?.userRef);
 
     useEffect(() => {
         // Disable scrolling on mount if there's an error
@@ -164,9 +163,10 @@ export default function Listing() {
                                 {listing.furnished ? 'Furnished' : 'Unfurnished'}
                             </li>
                         </ul>
-                        {currentUser && listing.userRef !== currentUser._id && (
-                            <button className='p-3 text-blue-700 border border-blue-700 rounded uppercase hover:shadow-lg disabled:opacity-80'>Contact Landlord</button>
+                        {currentUser && listing.userRef !== currentUser._id && !contact && (
+                            <button onClick={() => setContact(true)} className='p-3 text-blue-700 border border-blue-700 rounded uppercase hover:shadow-lg disabled:opacity-80'>Get in Touch with Landlord</button>
                         )}
+                        {contact && <Contact/>}
                     </div>
                 </div>
             )}
