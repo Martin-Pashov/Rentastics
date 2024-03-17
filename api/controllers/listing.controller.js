@@ -76,3 +76,8 @@ export const getListing = async (request, response, next) => {
         next(error);
     }
 }
+
+
+export const getListings = async (request, response, next) => {
+    
+}
