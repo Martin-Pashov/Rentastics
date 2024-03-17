@@ -10,6 +10,7 @@ export default function Search() {
                 <input type='text' id='searchTerm' placeholder='Search...' className='border rounded-lg p-3 w-full'></input>
             </div>
 
+
             <div className='flex gap-3 flex-wrap items-center'>
                 <label>Type:</label>
                 <div className='flex gap-2'>
@@ -46,12 +47,24 @@ export default function Search() {
                     <span>Furnished</span>
                 </div>
             </div>
+
+
+            <div className='flex items-center gap-3'>
+                <label>Sort:</label>
+                <select id='sort_order' className='border rounded-lg p-3'>
+                    <option>Price: high to low</option>
+                    <option>Price: low to high</option>
+                    <option>Latest</option>
+                    <option>Oldest</option>
+                </select>
+            </div>
+
+            <button className='p-3 text-blue-700 border border-blue-700 rounded uppercase hover:shadow-lg disabled:opacity-80'>Search</button>
         </form>
       </div>
 
-
       <div className=''>
-        <h1>Search Results:</h1>
+        <h1 className='text-3xl font-semibold border-b p-3 mt-5'>Search Results:</h1>
       </div>
     </div>
   )
