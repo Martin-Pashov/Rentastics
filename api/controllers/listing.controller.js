@@ -92,6 +92,16 @@ export const getListings = async (request, response, next) => {
         if (furnished === 'undefined' || furnished === 'false') {
             furnished = { $in: [false, true] };
         }
+
+        let parking = request.query.parking;
+        if (parking === 'undefined' || parking === 'false') {
+            parking = { $in: [false, true] };
+        }
+
+        let type = request.query.type;
+        if (type === undefined || type === 'all') {
+            type = { $in: ['sale', 'rent'] };
+        }
     } 
     
     catch (error) {
