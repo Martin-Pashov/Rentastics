@@ -14,6 +14,7 @@ import {
     FaShare,
   } from 'react-icons/fa';
 import powImage from '../../public/images/pow.svg';
+import Contact from '../components/Contact';
 
 export default function Listing() {
     SwiperCore.use([Navigation]);
@@ -166,7 +167,7 @@ export default function Listing() {
                         {currentUser && listing.userRef !== currentUser._id && !contact && (
                             <button onClick={() => setContact(true)} className='p-3 text-blue-700 border border-blue-700 rounded uppercase hover:shadow-lg disabled:opacity-80'>Get in Touch with Landlord</button>
                         )}
-                        {contact && <Contact/>}
+                        {contact && <Contact listing={listing}/>}
                     </div>
                 </div>
             )}
