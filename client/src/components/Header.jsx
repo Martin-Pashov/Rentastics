@@ -26,6 +26,7 @@ export default function Header() {
         navigate(`/search?${searchQuery}`);
     };
 
+
     useEffect(() => {
         const urlParams = new URLSearchParams(location.search);
         const searchTermFromUrl = urlParams.get('searchTerm');
@@ -33,7 +34,7 @@ export default function Header() {
         if (searchTermFromUrl) {
           setSearchTerm(searchTermFromUrl);
         }
-        
+
     }, [location.search]);
 
   return (
@@ -44,7 +45,7 @@ export default function Header() {
             <img src={logo} alt='Martin Estate Logo' className='h-8 sm:h-10 cursor-pointer' />
             </Link>
 
-            <form className='bg-slate-100 p-3 rounded-lg flex items-center'>
+            <form onSubmit={handleSubmit} className='bg-slate-100 p-3 rounded-lg flex items-center'>
                 <input type='text' placeholder='Search...' className='bg-transparent focus:outline-none w-24 sm:w-64 md:w-48' value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} />
                 <button>
                     <FaSearch className='text-slate-600' />
@@ -59,16 +60,16 @@ export default function Header() {
                 reason - border bottom remains 0, even after tailwind styling is applied
                 */}
                 <Link to='/'>
-                <li className={`py-6 text-md font-semibold text-gray-400 border-b-[3] border-b-transparent hidden sm:inline ${pathMatchRoute('/') && 'text-black border-b-red-500'}`}>Home</li>
+                    <li className={`py-6 text-md font-semibold text-gray-400 border-b-[3] border-b-transparent hidden sm:inline ${pathMatchRoute('/') && 'text-black border-b-red-500'}`}>Home</li>
                 </Link>
 
                 <Link to='/offers'>
-                <li className={`text-md font-semibold text-gray-400 border-b-[3] border-b-transparent hidden sm:inline ${pathMatchRoute('/offers') && 'text-black border-b-red-500'}`}>Offers</li>
+                    <li className={`text-md font-semibold text-gray-400 border-b-[3] border-b-transparent hidden sm:inline ${pathMatchRoute('/offers') && 'text-black border-b-red-500'}`}>Offers</li>
                 </Link>
 
                 {/* This is subject to change due to stylistic reasons. The location may be changed and removed from the header component.*/}
                 <Link to='/about'>
-                <li className={`text-md font-semibold text-gray-400 border-b-[3] border-b-transparent hidden sm:inline ${pathMatchRoute('/about') && 'text-black border-b-red-500'}`}>About</li>
+                    <li className={`text-md font-semibold text-gray-400 border-b-[3] border-b-transparent hidden sm:inline ${pathMatchRoute('/about') && 'text-black border-b-red-500'}`}>About</li>
                 </Link>
 
                 <Link to='/profile'> 
