@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
+import ListingItem from '../components/ListingItem';
 
 export default function Search() {
     const navigate = useNavigate();
@@ -15,7 +16,7 @@ export default function Search() {
         order: 'desc',
     });
 
-    console.log(listings);
+    //console.log(listings);
 
 
     useEffect(() => {
@@ -162,8 +163,22 @@ export default function Search() {
             </form>
         </div>
 
+
         <div className='w-full text-center'>
             <h1 className='text-3xl font-semibold border-b p-3 mt-5'>Search Results</h1> {/*TODO// Search Results: Found {num of properties} properties matching your criteria*/}
+            <div className='p-7 flex flex-wrap gap-4'>
+                {!loading && listings.length === 0 && (
+                    <p className='text-xl text-center text-gray-600'>No listings found. Please try refining your search criteria.</p>
+                )}
+
+                {loading && (
+                    <p className='text-xl text-center text-gray-600 w-full'>Loading...</p>
+                )}
+
+                {!loading && listings && listings.map((listing) => (
+                    <ListingItem key={listing._id} listing={listing}/>
+                ))}
+            </div>
         </div>
     </div>
 )}
