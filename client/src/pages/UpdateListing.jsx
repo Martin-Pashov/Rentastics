@@ -125,7 +125,7 @@ export default function UpdateListing() {
 
         try {
             if (formData.imageUrls.length < 1) {
-                return setError('Listing creation requires at least one uploaded image. Please add an image to proceed.')
+                return setError('Listing updating requires at least one uploaded image. Please add an image to proceed.')
             }
     
             if (+formData.regularPrice < +formData.discountedPrice) {

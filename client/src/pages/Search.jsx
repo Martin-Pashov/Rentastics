@@ -107,7 +107,7 @@ export default function Search() {
             <form onSubmit={handleSubmit} className='flex flex-col gap-6'>
                 <div className='flex items-center gap-4'>
                     <label htmlFor='searchTerm' className='whitespace-nowrap font-bold'>Search Term:</label>
-                    <input type='text' id='searchTerm' placeholder='Enter keywords to search properties...' className='border rounded-lg p-3 w-full' value={sidebarData.searchTerm} onChange={handleChange}></input>
+                    <input type='text' id='searchTerm' placeholder='Enter keywords to search properties...' className='truncate border rounded-lg p-3 w-full' value={sidebarData.searchTerm} onChange={handleChange}></input>
                 </div>
 
 
