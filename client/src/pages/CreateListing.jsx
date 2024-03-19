@@ -29,7 +29,7 @@ export default function CreateListing() {
     const [loading, setLoading] = useState(false);
     
 
-    console.log(formData);
+    //console.log(formData);
 
 
     const handleImageSubmit = (e) => {
@@ -48,7 +48,7 @@ export default function CreateListing() {
                 setImageUploadError(false);
                 setUploading(false);
             }).catch((error) => {
-                setImageUploadError('Failed to upload image. Please ensure each image is no larger than 2MB.');
+                setImageUploadError('Failed to upload image. Please ensure each image is no larger than 3MB.');
                 setUploading(false);
             });
         } 

@@ -36,9 +36,9 @@ export default function Home() {
         </Link>
       </div>
 
-
-
       {/* swiper */}
+
+      
 
 
       {/* listing results for offer, sale and rent */}
