@@ -4,6 +4,7 @@ import { Swiper, SwiperSlide } from 'swiper/react'
 import { Navigation } from 'swiper/modules'
 import SwiperCore from 'swiper'
 import 'swiper/css/bundle'
+import ListingItem from '../components/ListingItem'
 
 export default function Home() {
   const [offerListings, setOfferListings] = useState([]);
@@ -55,7 +56,6 @@ export default function Home() {
         log(error);
       }
     };
-    //text-white font-semibold opacity-50 focus:outline-none
 
     fetchOfferListings();
   }, []);
@@ -125,6 +125,53 @@ export default function Home() {
 
 
       {/* listing results for offer, sale and rent */}
+
+      <div className='max-w-6xl mx-auto px-4 py-8 flex flex-col gap-8 my-10 items-center'>
+        {offerListings && offerListings.length > 0 && (
+          <div className='border border-gray-200 rounded-lg overflow-hidden justify-center w-full'>
+            <div className='p-4 bg-gray-100'>
+              <h2 className='text-xl font-semibold text-gray-800'>Explore Our Latest Property Offers</h2>
+              <p className="text-sm text-gray-600 mt-1">Discover our newest property listings and find your dream home.</p>
+              <Link className='text-sm text-blue-700 hover:text-blue-900 hover:underline mt-4' to={'/search?offer=true'}>Browse All Offers <i className="fas fa-arrow-right ml-1"></i></Link>
+            </div>
+            <div className='flex flex-wrap text-center gap-4 p-4'>
+              {offerListings.map((listing) => (
+                <ListingItem listing={listing} key={listing._id} />
+              ))}
+            </div>
+          </div>
+        )}
+
+        {rentListings && rentListings.length > 0 && (
+          <div className='border border-gray-200 rounded-lg overflow-hidden w-full'>
+            <div className='p-4 bg-gray-100'>
+              <h2 className='text-xl font-semibold text-gray-800'>Find Your Perfect Rental Property</h2>
+              <p className="text-sm text-gray-600 mt-1">Browse through our latest rental listings to secure your next home.</p>
+              <Link className='text-sm text-blue-700 hover:text-blue-900 hover:underline mt-4' to={'/search?type=rent'}>Explore Rental Places <i className="fas fa-arrow-right ml-1"></i></Link>
+            </div>
+            <div className='flex flex-wrap text-center gap-4 p-4'>
+              {rentListings.map((listing) => (
+                <ListingItem listing={listing} key={listing._id} />
+              ))}
+            </div>
+          </div>
+        )}
+            
+        {saleListings && saleListings.length > 0 && (
+          <div className='border border-gray-200 rounded-lg overflow-hidden w-full'>
+            <div className='p-4 bg-gray-100'>
+              <h2 className='text-xl font-semibold text-gray-800'>Discover Exclusive Properties for Sale</h2>
+              <p className="text-sm text-gray-600 mt-1">Explore our collection of exclusive properties for sale, carefully curated for you.</p>
+              <Link className='text-sm text-blue-700 hover:text-blue-900 hover:underline mt-4' to={'/search?type=sale'}>View All Properties for Sale <i className="fas fa-arrow-right ml-1"></i></Link>
+            </div>
+            <div className='flex flex-wrap text-center w-full gap-4 p-4'>
+              {saleListings.map((listing) => (
+                <ListingItem listing={listing} key={listing._id} />
+              ))}
+            </div>
+          </div>
+        )}
+      </div>
     </div>
   );
 }

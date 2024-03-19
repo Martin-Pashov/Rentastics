@@ -3,8 +3,8 @@ import { Link } from 'react-router-dom'
 import { MdLocationOn } from 'react-icons/md'
 
 export default function ListingItem({ listing }) {
-    return (
-        <div className='bg-white shadow-md hover:shadow-lg transition-shadow overflow-hidden rounded-lg w-full sm:w-[330px] flex flex-col'>
+  return (
+      <div className='bg-white shadow-md hover:shadow-lg transition-shadow overflow-hidden rounded-lg w-full sm:w-[330px] flex flex-col'>
         <Link to={`/listing/${listing._id}`} className="block flex-grow">
           <img
             src={listing.imageUrls[0] || 'https://cdn.pixabay.com/photo/2016/11/29/03/53/house-1867187_640.jpg'}
@@ -42,6 +42,6 @@ export default function ListingItem({ listing }) {
             <p className='text-sm font-semibold text-gray-700'>{listing.bathrooms}</p>
           </div>
         </div>
-      </div>
+    </div>
   )
 }
