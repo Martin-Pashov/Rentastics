@@ -129,7 +129,7 @@ export default function Listing() {
                                 {listing.type === 'rent' ? 'For Rent' : 'For Sale'}
                             </p>
 
-                            {listing.offer && (<p className='bg-green-900 w-full max-w-[200px] text-white text-center p-1 rounded-md'>${+listing.regularPrice - +listing.discountedPrice}</p>)}
+                            {listing.offer && (<p className='bg-green-900 w-full max-w-[200px] text-white text-center p-1 rounded-md'>${+listing.regularPrice - +listing.discountedPrice} OFF</p>)}
                         </div>
 
                         <p className='text-slate-800'>
@@ -167,7 +167,7 @@ export default function Listing() {
                         {currentUser && listing.userRef !== currentUser._id && !contact && (
                             <button onClick={() => setContact(true)} className='p-3 text-blue-700 border border-blue-700 rounded uppercase hover:shadow-lg disabled:opacity-80'>Get in Touch with Landlord</button>
                         )}
-                        {contact && <Contact listing={listing}/>}
+                        {contact && <Contact listing={listing} />}
                     </div>
                 </div>
             )}
