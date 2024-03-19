@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 import { useNavigate, Navigate } from 'react-router-dom'
-import pageNotFoundImage from '../../../public/images/219006-P0YPC6-16.svg'
+import pageNotFoundImage from '../../../public/images/pageNotFound.svg'
 
 export default function PageNotFound() {
 
