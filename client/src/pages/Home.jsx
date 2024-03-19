@@ -5,6 +5,8 @@ import { Navigation } from 'swiper/modules'
 import SwiperCore from 'swiper'
 import 'swiper/css/bundle'
 import ListingItem from '../components/ListingItem'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faArrowRight } from '@fortawesome/free-solid-svg-icons';
 
 export default function Home() {
   const [offerListings, setOfferListings] = useState([]);
@@ -126,16 +128,18 @@ export default function Home() {
 
       {/* listing results for offer, sale and rent */}
 
-      <div className='max-w-6xl mx-auto px-4 py-8 flex flex-col gap-8 my-10 items-center'>
+      <div className='max-w-6xl mx-auto px-4 py-8 flex flex-col gap-12 my-10 items-center'>
         {offerListings && offerListings.length > 0 && (
           <div className='border border-gray-200 rounded-lg overflow-hidden justify-center w-full'>
-            <div className='p-4 bg-gray-100'>
+            <div className='p-4 bg-gray-100 text-center'>
               <h2 className='text-xl font-semibold text-gray-800'>Explore Our Latest Property Offers</h2>
               <p className="text-sm text-gray-600 mt-1">Discover our newest property listings and find your dream home.</p>
-              <Link className='text-sm text-blue-700 hover:text-blue-900 hover:underline mt-4' to={'/search?offer=true'}>Browse All Offers <i className="fas fa-arrow-right ml-1"></i></Link>
+              <Link className='text-sm text-blue-700 hover:text-blue-900 hover:underline mt-4' to={'/search?offer=true'}>Browse All Offers 
+                <FontAwesomeIcon icon={faArrowRight} className="ml-1" />
+              </Link>
             </div>
-            <div className='flex flex-wrap text-center gap-4 p-4'>
-              {offerListings.map((listing) => (
+            <div className='flex flex-wrap text-center gap-4 p-4 justify-evenly'>
+              {offerListings.slice(0, 3).map((listing) => (
                 <ListingItem listing={listing} key={listing._id} />
               ))}
             </div>
@@ -144,13 +148,15 @@ export default function Home() {
 
         {rentListings && rentListings.length > 0 && (
           <div className='border border-gray-200 rounded-lg overflow-hidden w-full'>
-            <div className='p-4 bg-gray-100'>
+            <div className='p-4 bg-gray-100 text-center'>
               <h2 className='text-xl font-semibold text-gray-800'>Find Your Perfect Rental Property</h2>
               <p className="text-sm text-gray-600 mt-1">Browse through our latest rental listings to secure your next home.</p>
-              <Link className='text-sm text-blue-700 hover:text-blue-900 hover:underline mt-4' to={'/search?type=rent'}>Explore Rental Places <i className="fas fa-arrow-right ml-1"></i></Link>
+              <Link className='text-sm text-blue-700 hover:text-blue-900 hover:underline mt-4' to={'/search?type=rent'}>Explore Rental Places 
+                <FontAwesomeIcon icon={faArrowRight} className="ml-1" />
+              </Link>
             </div>
-            <div className='flex flex-wrap text-center gap-4 p-4'>
-              {rentListings.map((listing) => (
+            <div className='flex flex-wrap text-center gap-4 p-4 justify-evenly'>
+              {rentListings.slice(0, 3).map((listing) => (
                 <ListingItem listing={listing} key={listing._id} />
               ))}
             </div>
@@ -159,13 +165,15 @@ export default function Home() {
             
         {saleListings && saleListings.length > 0 && (
           <div className='border border-gray-200 rounded-lg overflow-hidden w-full'>
-            <div className='p-4 bg-gray-100'>
+            <div className='p-4 bg-gray-100 text-center'>
               <h2 className='text-xl font-semibold text-gray-800'>Discover Exclusive Properties for Sale</h2>
               <p className="text-sm text-gray-600 mt-1">Explore our collection of exclusive properties for sale, carefully curated for you.</p>
-              <Link className='text-sm text-blue-700 hover:text-blue-900 hover:underline mt-4' to={'/search?type=sale'}>View All Properties for Sale <i className="fas fa-arrow-right ml-1"></i></Link>
+              <Link className='text-sm text-blue-700 hover:text-blue-900 hover:underline mt-4' to={'/search?type=sale'}>View All Properties for Sale 
+                <FontAwesomeIcon icon={faArrowRight} className="ml-1" />
+              </Link>
             </div>
-            <div className='flex flex-wrap text-center w-full gap-4 p-4'>
-              {saleListings.map((listing) => (
+            <div className='flex flex-wrap text-center w-full gap-5 p-4 justify-evenly'>
+              {saleListings.slice(0, 3).map((listing) => (
                 <ListingItem listing={listing} key={listing._id} />
               ))}
             </div>
