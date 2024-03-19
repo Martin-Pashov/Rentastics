@@ -17,7 +17,7 @@ export default function ListingItem({ listing }) {
             <p className='truncate text-sm text-gray-900'>{listing.name}</p>
             
             <div className='flex items-center mt-2 text-gray-600 text-sm'>
-              <MdLocationOn className='h-5 w-5 mr-2' />
+              <MdLocationOn className=' text-red-700 h-5 w-5 mr-2' />
               <p className='truncate'>{listing.address}</p>
             </div>
             <h3 className="mt-4 text-lg font-semibold text-gray-900">Description:</h3>

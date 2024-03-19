@@ -224,7 +224,7 @@ export default function Profile() {
 
       <p className="text-red-700 mt-5">{error ? error : ''}</p>
       <p className="text-green-700 mt-5">{updateSuccess ? 'Your profile was successfully updated. Changes have been saved.' : ''}</p>
-      <button onClick={() => {handleShowListings(); setShowListingsClicked(true);}} className="flex flex-col items-center justify-center p-3 text-green-700 border border-green-700 rounded uppercase hover:shadow-lg disabled:opacity-80 w-50% mx-auto">Show Listings</button>
+      <button onClick={() => {handleShowListings(); setShowListingsClicked(true);}} className="flex flex-col items-center justify-center p-3 text-green-700 border border-green-700 rounded uppercase hover:shadow-lg disabled:opacity-80 w-50% mx-auto">View Your Properties</button>
       
         {showListingsClicked && (
           <div>
