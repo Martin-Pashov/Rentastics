@@ -15,6 +15,7 @@ export default function ListingItem({ listing }) {
         <div className='p-4'>
           <h2 className="text-lg font-semibold text-gray-900">Title:</h2>
           <p className='truncate text-sm text-gray-900'>{listing.name}</p>
+          
           <div className='flex items-center mt-2 text-gray-600 text-sm'>
             <MdLocationOn className='h-5 w-5 mr-2' />
             <p className='truncate'>{listing.address}</p>
@@ -26,19 +27,19 @@ export default function ListingItem({ listing }) {
 
       <div className='bg-gray-100 px-4 py-2 flex justify-between items-center'>
         <div>
-          <h4 className="text-sm font-semibold text-gray-900">Price:</h4>
-          <p className='text-sm font-semibold text-gray-900'>
+          <h4 className="text-sm font-semibold text-gray-700">Price:</h4>
+          <p className='text-sm font-semibold text-gray-700'>
             ${listing.offer ? listing.discountedPrice?.toLocaleString('en-US') : listing.regularPrice.toLocaleString('en-US')}
             {listing.type === 'rent' && ' / month'}
           </p>
         </div>
         <div>
-          <h4 className="text-sm font-semibold text-gray-900">Bedrooms:</h4>
-          <p className='text-sm font-semibold text-gray-900'>{listing.bedrooms}</p>
+          <h4 className="text-sm font-semibold text-gray-700">Bedrooms:</h4>
+          <p className='text-sm font-semibold text-gray-700'>{listing.bedrooms}</p>
         </div>
         <div>
-          <h4 className="text-sm font-semibold text-gray-900">Bathrooms:</h4>
-          <p className='text-sm font-semibold text-gray-900'>{listing.bathrooms}</p>
+          <h4 className="text-sm font-semibold text-gray-700">Bathrooms:</h4>
+          <p className='text-sm font-semibold text-gray-700'>{listing.bathrooms}</p>
         </div>
       </div>
     </div>
