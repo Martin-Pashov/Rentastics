@@ -1,10 +1,15 @@
 import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
+import { Swiper, SwiperSlide } from 'swiper/react'
+import { Navigation } from 'swiper/modules'
+import SwiperCore from 'swiper'
+import 'swiper/css/bundle'
 
 export default function Home() {
   const [offerListings, setOfferListings] = useState([]);
   const [saleListings, setSaleListings] = useState([]);
   const [rentListings, setRentListings] = useState([]);
+  SwiperCore.use([Navigation]);
 
   console.log(saleListings);
   
@@ -88,9 +93,34 @@ export default function Home() {
         </Link>
       </div>
 
+
       {/* swiper */}
-
-
+      <Swiper
+        navigation
+        spaceBetween={50} // Adjust as needed
+        slidesPerView={1} // Adjust as needed
+      >
+        {offerListings &&
+          offerListings.length > 0 &&
+          offerListings.map((listing) => (
+            <SwiperSlide key={listing._id}>
+              <div
+                className="relative h-96 md:h-[500px] bg-cover bg-center"
+                style={{
+                  backgroundImage: `url(${listing.imageUrls[0]})`,
+                }}
+              >
+                <div className="absolute inset-0 bg-black opacity-25"></div>
+                <div className="absolute inset-0 flex items-center justify-center">
+                  <h2 className="text-white font-bold text-lg md:text-3xl text-center">
+                    {/* You can add additional content or information here */}
+                    {listing.title}
+                  </h2>
+                </div>
+              </div>
+            </SwiperSlide>
+          ))}
+      </Swiper>
 
 
       {/* listing results for offer, sale and rent */}
