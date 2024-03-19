@@ -55,6 +55,7 @@ export default function Home() {
         log(error);
       }
     };
+    //text-white font-semibold opacity-50 focus:outline-none
 
     fetchOfferListings();
   }, []);
@@ -97,8 +98,8 @@ export default function Home() {
       {/* swiper */}
       <Swiper
         navigation
-        spaceBetween={50} // Adjust as needed
-        slidesPerView={1} // Adjust as needed
+        spaceBetween={50}
+        slidesPerView={1}
       >
         {offerListings &&
           offerListings.length > 0 &&
@@ -110,12 +111,12 @@ export default function Home() {
                   backgroundImage: `url(${listing.imageUrls[0]})`,
                 }}
               >
-                <div className="absolute inset-0 bg-black opacity-25"></div>
-                <div className="absolute inset-0 flex items-center justify-center">
-                  <h2 className="text-white font-bold text-lg md:text-3xl text-center">
-                    {/* You can add additional content or information here */}
-                    {listing.title}
+                <div className="absolute inset-0 bg-black opacity-50"></div>
+                <div className="absolute inset-0 flex flex-col items-center justify-center text-white">
+                  <h2 className="font-bold text-xl md:text-4xl text-center mb-4 opacity-70">
+                    {listing.name}
                   </h2>
+                  <a href={`/listing/${listing._id}`} className="text-white opacity-65 hover:opacity-100 focus:opacity-100 transition-opacity duration-300 ease-in-out">Discover More</a>
                 </div>
               </div>
             </SwiperSlide>
