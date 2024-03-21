@@ -35,6 +35,7 @@ export default function App() {
       </Route>
 
       <Route path='/offers' element={<Offers />} />
+      <Route path="/forgot-password" element={<ForgotPassword />} />
 
       <Route path="*" element={<PageNotFound />} />
     </Routes>

@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import OAuth from '../components/OAuth';
+import logoImg from '../../public/images/faviconLogoFinal.svg';
 
 export default function SignUp() {
   const [formData, setFormData] = useState({});
@@ -41,7 +42,12 @@ export default function SignUp() {
   };
   return (
     <div className='p-3 max-w-lg mx-auto'>
-      <h1 className='text-3xl text-center font-semibold my-7'>Sign Up</h1>
+      <div className='text-center'>
+        <img className='mx-auto w-12' src={logoImg} alt="logo" />
+        <h4 className='mb-12 mt-1 pb-1 text-xl font-bold'>Welcome to Rentastics</h4>
+      </div>
+
+      <h1 className='text-3xl text-center font-medium my-7'>Create Your Account Here</h1>
       <form onSubmit={handleSubmit} className='flex flex-col gap-4'>
         <input type='text' placeholder='username' className='border p-3 rounded-lg' id='username' onChange={handleChange} />
         <input type='email' placeholder='email' className='border p-3 rounded-lg' id='email' onChange={handleChange} />
@@ -49,7 +55,7 @@ export default function SignUp() {
         <button disabled={loading} className='bg-blue-500 text-white p-3 rounded-lg uppercase hover:opacity-95 disabled:opacity-80'>{loading ? 'Loading...' : 'Sign Up'}</button>
         <OAuth/>
       </form>
-      <div className='flex gap-2 mt-5'>
+      <div className='flex justify-between mr-4 ml-4 mt-5'>
         <p>Have an account?</p>
         <Link to={'/sign-in'}>
           <span className='text-blue-700'>Sign in</span>
