@@ -76,23 +76,23 @@ export default function Home() {
 
         <div className="grid grid-cols-1 gap-8 sm:grid-cols-1 lg:grid-cols-3">
           <div className="bg-white text-center shadow-lg p-6 rounded-lg">
-            <h2 className="text-gray-900 font-semibold text-lg">Explore</h2>
+            <h2 className="text-gray-900 font-semibold text-xl">Explore</h2>
             <p className="text-gray-700 mt-2">Discover a wide range of properties tailored to your preferences.</p>
           </div>
 
           <div className="bg-white text-center shadow-lg p-6 rounded-lg">
-            <h2 className="text-gray-900 font-semibold text-lg">Customize</h2>
+            <h2 className="text-gray-900 font-semibold text-xl">Customize</h2>
             <p className="text-gray-700 mt-2">Personalize your search criteria to find the perfect fit for your lifestyle.</p>
           </div>
 
           <div className="bg-white text-center shadow-lg p-6 rounded-lg">
-            <h2 className="text-gray-900 font-semibold text-lg">Connect</h2>
+            <h2 className="text-gray-900 font-semibold text-xl">Connect</h2>
             <p className="text-gray-700 mt-2">Connect with reliable landlords and property managers effortlessly..</p>
           </div>
         </div>
 
         <Link to="/search" className="inline-block text-center bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-lg text-sm sm:text-base">
-          Let's Get Started
+          Get Started Now
         </Link>
       </div>
 
@@ -132,13 +132,13 @@ export default function Home() {
         {offerListings && offerListings.length > 0 && (
           <div className='border border-gray-200 rounded-lg overflow-hidden justify-center w-full'>
             <div className='p-4 bg-gray-100 text-center'>
-              <h2 className='text-xl font-semibold text-gray-800'>Explore Our Latest Property Offers</h2>
+              <h2 className='text-xl font-bold text-gray-800'>Explore Our Latest Property Offers</h2>
               <p className="text-sm text-gray-600 mt-1">Discover our newest property listings and find your dream home.</p>
               <Link className='text-sm text-blue-700 hover:text-blue-900 hover:underline mt-4' to={'/search?offer=true'}>Browse All Offers 
                 <FontAwesomeIcon icon={faArrowRight} className="ml-1" />
               </Link>
             </div>
-            <div className='flex flex-wrap text-center gap-4 p-4 justify-evenly'>
+            <div className='flex flex-wrap text-center gap-4 p-4 justify-center'>
               {offerListings.slice(0, 3).map((listing) => (
                 <ListingItem listing={listing} key={listing._id} />
               ))}
@@ -149,13 +149,13 @@ export default function Home() {
         {rentListings && rentListings.length > 0 && (
           <div className='border border-gray-200 rounded-lg overflow-hidden w-full'>
             <div className='p-4 bg-gray-100 text-center'>
-              <h2 className='text-xl font-semibold text-gray-800'>Find Your Perfect Rental Property</h2>
+              <h2 className='text-xl font-bold text-gray-800'>Find Your Perfect Rental Property</h2>
               <p className="text-sm text-gray-600 mt-1">Browse through our latest rental listings to secure your next home.</p>
               <Link className='text-sm text-blue-700 hover:text-blue-900 hover:underline mt-4' to={'/search?type=rent'}>Explore Rental Places 
                 <FontAwesomeIcon icon={faArrowRight} className="ml-1" />
               </Link>
             </div>
-            <div className='flex flex-wrap text-center gap-4 p-4 justify-evenly'>
+            <div className='flex flex-wrap text-center gap-4 p-4 justify-center'>
               {rentListings.slice(0, 3).map((listing) => (
                 <ListingItem listing={listing} key={listing._id} />
               ))}
@@ -166,13 +166,13 @@ export default function Home() {
         {saleListings && saleListings.length > 0 && (
           <div className='border border-gray-200 rounded-lg overflow-hidden w-full'>
             <div className='p-4 bg-gray-100 text-center'>
-              <h2 className='text-xl font-semibold text-gray-800'>Discover Exclusive Properties for Sale</h2>
+              <h2 className='text-xl font-bold text-gray-800'>Discover Exclusive Properties for Sale</h2>
               <p className="text-sm text-gray-600 mt-1">Explore our collection of exclusive properties for sale, carefully curated for you.</p>
               <Link className='text-sm text-blue-700 hover:text-blue-900 hover:underline mt-4' to={'/search?type=sale'}>View All Properties for Sale 
                 <FontAwesomeIcon icon={faArrowRight} className="ml-1" />
               </Link>
             </div>
-            <div className='flex flex-wrap text-center w-full gap-5 p-4 justify-evenly'>
+            <div className='flex flex-wrap text-center w-full gap-5 p-4 justify-center'>
               {saleListings.slice(0, 3).map((listing) => (
                 <ListingItem listing={listing} key={listing._id} />
               ))}
