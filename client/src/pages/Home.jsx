@@ -87,7 +87,7 @@ export default function Home() {
 
           <div className="bg-white text-center shadow-lg p-6 rounded-lg">
             <h2 className="text-gray-900 font-semibold text-lg">Connect</h2>
-            <p className="text-gray-700 mt-2">Connect with reliable landlords and property managers effortlessly.</p>
+            <p className="text-gray-700 mt-2">Connect with reliable landlords and property managers effortlessly..</p>
           </div>
         </div>
 

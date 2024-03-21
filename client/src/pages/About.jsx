@@ -5,7 +5,7 @@ export default function About() {
   return (
     <div className="bg-gray-100 min-h-screen">
       <div className="py-20 px-4 max-w-6xl mx-auto">
-        <h1 className="text-4xl font-bold mb-8 text-gray-800">Welcome to Rentastics</h1>
+        <h1 className="text-4xl text-center font-bold mb-8 text-gray-800">Welcome to Rentastics</h1>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
           <div className="mb-8">
             <img src="../../public/images/about-us.svg" alt="About Us" className="rounded-lg shadow-md w-full object-cover hover:scale-105 transition-scale duration-300 filter brightness-90 hover:brightness-100"/>
