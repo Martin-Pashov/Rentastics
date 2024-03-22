@@ -34,7 +34,7 @@ export default function App() {
         <Route path='/update-listing/:listingId' element={<UpdateListing />} />
       </Route>
 
-      <Route path='/offers' element={<Offers />} />
+      {/*<Route path='/offers' element={<Offers />} />*/}
 
       <Route path="*" element={<PageNotFound />} />
     </Routes>

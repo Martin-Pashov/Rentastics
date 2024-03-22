@@ -42,7 +42,7 @@ export default function Header() {
     <header className='bg-white border-b shadow-sm sticky top-0 z-50'>
         <div className='flex justify-between items-center max-w-6xl mx-auto p-3'>
             <Link to='/'>
-            <img src={logo} alt='Martin Estate Logo' className='h-8 sm:h-10 cursor-pointer' />
+                <img src={logo} alt='Martin Estate Logo' className='h-8 sm:h-10 cursor-pointer' />
             </Link>
 
             <form onSubmit={handleSubmit} className='bg-slate-100 p-3 rounded-lg flex items-center'>
@@ -63,8 +63,8 @@ export default function Header() {
                     <li className={`py-6 text-md font-semibold text-gray-400 border-b-[3] border-b-transparent hidden sm:inline ${pathMatchRoute('/') && 'text-black border-b-red-500'}`}>Home</li>
                 </Link>
 
-                <Link to='/offers'>
-                    <li className={`text-md font-semibold text-gray-400 border-b-[3] border-b-transparent hidden sm:inline ${pathMatchRoute('/offers') && 'text-black border-b-red-500'}`}>Offers</li>
+                <Link to='/search?offer=true'>
+                    <li className={`text-md font-semibold text-gray-400 border-b-[3] border-b-transparent hidden sm:inline ${pathMatchRoute('/search?offer=true') && 'text-black border-b-red-500'}`}>Offers</li>
                 </Link>
 
                 {/* This is subject to change due to stylistic reasons. The location may be changed and removed from the header component.*/}
