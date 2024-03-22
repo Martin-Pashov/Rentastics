@@ -47,16 +47,20 @@ export default function Profile() {
     const storageRef = ref(storage, fileName)
     const uploadTask = uploadBytesResumable(storageRef, file);
 
-    uploadTask.on('state_changed', 
+    uploadTask.on(
+      'state_changed', 
       (snapshot) => {
-        const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+        const progress = 
+          (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
         setFilePercentage(Math.round(progress));
       },
       (error) => {
         setFileUploadError(true);
       },
       () => {
-        getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => setFormData({ ...formData, avatar: downloadURL }));
+        getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => 
+          setFormData({ ...formData, avatar: downloadURL })
+        );
       }
     );
   };
@@ -72,7 +76,9 @@ export default function Profile() {
       dispatch(updateUserStart());
       const response = await fetch(`/api/user/update/${currentUser._id}`, {
         method: 'POST',
-        headers: {'Content-Type': 'application/json'},
+        headers: {
+          'Content-Type': 'application/json',
+        },
         body: JSON.stringify(formData),
       });
 
@@ -187,7 +193,7 @@ export default function Profile() {
       console.log(error.message);
       setDeleteError(true);
     }
-  }
+  };
 
 
   return (
@@ -196,7 +202,7 @@ export default function Profile() {
 
       <form onSubmit={handleSubmit} className="flex flex-col gap-4">
         <input onChange={(e) => setFile(e.target.files[0])} type="file" ref={fileRef} hidden accept="image/*"/>
-        <img onClick={() => fileRef.current.click()} src={formData.avatar || currentUser.avatar} alt="profile" className="rounded-full h-24 w-24 object-cover cursor-pointer self-center mt-2" />
+        <img onClick={() => fileRef.current.click()} src={formData.avatar || currentUser.avatar} alt='profile' className="rounded-full h-24 w-24 object-cover cursor-pointer self-center mt-2" />
         
         <p className="test-sm self-center">
           {fileUploadError ? (
