@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import OAuth from '../components/OAuth';
 import logoImg from '../../public/images/faviconLogoFinal.svg';
@@ -7,17 +7,56 @@ export default function SignUp() {
   const [formData, setFormData] = useState({});
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
+  const [success, setSuccess] = useState(false);
+  const [redirectTimer, setRedirectTimer] = useState(3);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    let errorTimeout;
+    if (error) {
+      errorTimeout = setTimeout(() => {
+        setError(null);
+      }, 3000);
+    }
+    return () => clearTimeout(errorTimeout);
+  }, [error]);
+
+
+  useEffect(() => {
+    let successTimeout;
+    if (success) {
+      successTimeout = setTimeout(() => {
+        navigate('/sign-in');
+      }, 3000);
+    }
+    return () => clearTimeout(successTimeout);
+  }, [success, navigate]);
+
+
+  useEffect(() => {
+    let countdownInterval;
+    if (success && redirectTimer > 0) {
+      countdownInterval = setInterval(() => {
+        setRedirectTimer((prevTimer) => prevTimer - 1);
+      }, 1000);
+    }
+    return () => clearInterval(countdownInterval);
+  }, [success, redirectTimer]);
+
+
   const handleChange = (e) => {
     setFormData({
       ...formData,
       [e.target.id]: e.target.value,
     });
   };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
+
     try {
       setLoading(true);
+
       const res = await fetch('/api/auth/signup', {
         method: 'POST',
         headers: {
@@ -25,21 +64,30 @@ export default function SignUp() {
         },
         body: JSON.stringify(formData),
       });
+
       const data = await res.json();
       console.log(data);
+
       if (data.success === false) {
         setLoading(false);
         setError(data.message);
+        setSuccess(false);
         return;
       }
+
       setLoading(false);
       setError(null);
-      navigate('/sign-in');
-    } catch (error) {
+      setSuccess(true);
+    } 
+    
+    catch (error) {
       setLoading(false);
       setError(error.message);
+      setSuccess(false);
     }
   };
+
+
   return (
     <div className='p-3 max-w-lg mx-auto'>
       <div className='text-center'>
@@ -61,7 +109,8 @@ export default function SignUp() {
           <span className='text-blue-700'>Sign in</span>
         </Link>
       </div>
-      {error && <p className='text-red-500 mt-5'>{error}</p>}
-    </div>
+      {error && <p className='text-red-500 text-center mt-5'>{error}</p>}
+      {success && <p className='text-green-500 text-center mt-5'>Sign up successful! Redirecting to sign in page in {redirectTimer} seconds...</p>}
+      </div>
   );
 }
