@@ -16,6 +16,7 @@ import {
 import powImage from '../../public/images/pow.svg';
 import Contact from '../components/Contact';
 import { MapContainer, Marker, Popup, TileLayer } from "react-leaflet";
+import "leaflet/dist/leaflet.css";
 
 export default function Listing() {
     SwiperCore.use([Navigation]);
@@ -28,24 +29,6 @@ export default function Listing() {
     const [copied, setCopied] = useState(false);
     const [contact, setContact] = useState(false);
     const currentUser = useSelector((state) => state.user.currentUser);
-
-    const fetchGeolocation = async (address) => {
-        try {
-            const response = await fetch(`https://maps.googleapis.com/maps/api/geocode/json?address=${encodeURIComponent(address)}&key=YOUR_API_KEY`);
-            if (!response.ok) {
-                throw new Error('Failed to fetch geolocation data');
-            }
-            const data = await response.json();
-            if (data.results.length > 0) {
-                const { lat, lng } = data.results[0].geometry.location;
-                return { lat, lng };
-            }
-            return null;
-        } catch (error) {
-            console.error('Error fetching geolocation:', error);
-            return null;
-        }
-    };
 
     
     useEffect(() => {
@@ -190,22 +173,28 @@ export default function Listing() {
                         )}
                         {contact && <Contact listing={listing} />}
                     </div>
-                </div>
-            )}
 
-            {listing && (
-                <div className="w-full h-[200px] md:h-[400px] z-10 overflow-x-hidden mt-6 md:mt-0 md:ml-2">
-                    <iframe
-                        className="items-center"
-                        src={`https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d9158.702953449912!2d${encodeURIComponent(listing.address)}!3d0!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c25b15a735a589%3A0xfc5c6e0ee693079d!2sThe%20Peristyle!5e0!3m2!1sbg!2sbg!4v1711108895804!5m2!1sbg!2sbg`}
-                        width="600"
-                        height="450"
-                        style={{ border: 0 }}
-                        allowFullScreen
-                        loading="lazy"
-                        referrerPolicy="no-referrer-when-downgrade"
-                        title="Responsive Map"
-                    ></iframe>
+                    
+                    <div className="h-[200px] md:h-[400px] z-10 overflow-x-hidden mt-6 md:mt-0 md:ml-2">
+                        <MapContainer
+                            center={[48.8566, 2.3522]} // Default center
+                            zoom={13}
+                            scrollWheelZoom={true}
+                            style={{ height: '100%', width: '100%' }}
+                        >
+                            {/* Render the tile layer */}
+                            <TileLayer
+                                attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+                                url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                            />
+                            {/* Render the marker if the address is available */}
+                            {listing.address && (
+                                <Marker position={[48.8566, 2.3522]}>
+                                    <Popup>The address of the property is: {listing.address}</Popup>
+                                </Marker>
+                            )}
+                        </MapContainer>
+                    </div>
                 </div>
             )}
         </main>
