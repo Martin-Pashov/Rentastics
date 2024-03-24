@@ -70,7 +70,7 @@ export default function Listing() {
 
         fetchListing();
     }, [params.listingId]);
-
+    
 
   return (
         <main>
@@ -99,12 +99,12 @@ export default function Listing() {
                         {listing.imageUrls.map((url) => (
                             <SwiperSlide key={url}>
                                 <div className="absolute inset-0 bg-black opacity-20"></div>
-                                <div className='h-[500px]' style={{background: `url(${url}) center no-repeat`, backgroundSize: 'cover'}}></div>
+                                <div className='h-[550px]' style={{background: `url(${url}) center no-repeat`, backgroundSize: 'cover'}}></div>
                             </SwiperSlide>
                         ))}
                     </Swiper>
 
-                    <div className='fixed top-[13%] right-[3%] z-10 border rounded-full w-12 h-12 flex justify-center items-center bg-slate-100 cursor-pointer'>
+                    <div className='fixed top-[12%] right-[5%] z-10 border rounded-full w-12 h-12 flex justify-center items-center bg-slate-100 cursor-pointer'>
                         <FaShare className='text-slate-500' onClick={() => {
                             navigator.clipboard.writeText(window.location.href);
                             setCopied(true);
@@ -123,7 +123,7 @@ export default function Listing() {
                             {listing.type === 'rent' && ' / month'}
                         </p>
 
-                        <p className='flex items-center mt-6 gap-2 text-slate-600  text-sm'>
+                        <p className='flex items-center mt-6 gap-2 text-slate-600 text-sm'>
                             <FaMapMarkerAlt className='text-green-700' />
                             {listing.address}
                         </p>
