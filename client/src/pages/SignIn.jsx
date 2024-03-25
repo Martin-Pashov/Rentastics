@@ -85,7 +85,7 @@ export default function SignIn() {
 
       <div className="mt-6 mr-4 ml-4 text-center flex justify-evenly">
         <p className="text-gray-600">Don't have an account?</p>
-        <Link to="/sign-up" className="text-blue-500">
+        <Link to="/sign-up" className="text-blue-700">
           Sign Up
         </Link>
       </div>
