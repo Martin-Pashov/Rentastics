@@ -101,14 +101,19 @@ export default function SignUp() {
         <input type='email' placeholder='email' className='border p-3 rounded-lg' id='email' onChange={handleChange} />
         <input type='password' placeholder='password' className='border p-3 rounded-lg' id='password' onChange={handleChange}/>
         <button disabled={loading} className='bg-blue-500 text-white p-3 rounded-lg uppercase hover:opacity-95 disabled:opacity-80'>{loading ? 'Loading...' : 'Sign Up'}</button>
+          <div className="flex items-center  my-4 before:border-t before:flex-1 before:border-gray-300 after:border-t after:flex-1 after:border-gray-300">
+            <p className="text-center font-semibold mx-4">OR</p>
+          </div>
         <OAuth/>
       </form>
-      <div className='flex justify-between mr-4 ml-4 mt-5'>
-        <p>Have an account?</p>
+
+      <div className='flex justify-evenly mr-4 ml-4 mt-5'>
+        <p>Already have an account?</p>
         <Link to={'/sign-in'}>
           <span className='text-blue-700'>Sign in</span>
         </Link>
       </div>
+
       {error && <p className='text-red-500 text-center mt-5'>{error}</p>}
       {success && <p className='text-green-500 text-center mt-5'>Sign up successful! Redirecting to sign in page in {redirectTimer} seconds...</p>}
       </div>

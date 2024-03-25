@@ -53,30 +53,23 @@ export default function Header() {
             </form>
             
             <ul className='flex gap-4'>
-
-                {/*
-                intellisense says ''border-b-transparent' applies the same CSS properties as 'border-b-[3]'', when it clearly doesn't?, 
-                also the '${pathMatchRoute('/') && 'text-black border-b-red-500'}' part is executed but not visualized in localhost, 
-                reason - border bottom remains 0, even after tailwind styling is applied
-                */}
                 <Link to='/'>
-                    <li className={`py-6 text-md font-semibold text-gray-400 border-b-[3] border-b-transparent hidden sm:inline ${pathMatchRoute('/') && 'text-black border-b-red-500'}`}>Home</li>
+                    <li className={`py-6 text-md font-semibold text-gray-400 border-b- transparent hidden sm:inline ${pathMatchRoute('/') && 'text-black border-b-red-500'}`}>Home</li>
                 </Link>
 
                 <Link to='/search?offer=true'>
-                    <li className={`text-md font-semibold text-gray-400 border-b-[3] border-b-transparent hidden sm:inline ${pathMatchRoute('/search?offer=true') && 'text-black border-b-red-500'}`}>Offers</li>
+                    <li className={`py-6 text-md font-semibold text-gray-400 border-b-3 hidden sm:inline ${pathMatchRoute('/search?offer=true') && 'text-black border-b-red-500'}`}>Offers</li>
                 </Link>
 
-                {/* This is subject to change due to stylistic reasons. The location may be changed and removed from the header component.*/}
                 <Link to='/about'>
-                    <li className={`text-md font-semibold text-gray-400 border-b-[3] border-b-transparent hidden sm:inline ${pathMatchRoute('/about') && 'text-black border-b-red-500'}`}>About</li>
+                    <li className={`py-6 text-md font-semibold text-gray-400 border-b-3 hidden sm:inline ${pathMatchRoute('/about') && 'text-black border-b-red-500'}`}>About</li>
                 </Link>
 
                 <Link to='/profile'> 
                     {currentUser ? (
-                        <img className='rounded-full h-7 w-7 object-cover' src={currentUser.avatar} alt="" />
+                        <img className='rounded-full h-7 w-7 object-cover' src={currentUser.avatar} alt="User Avatar" />
                     ) : (
-                        <li className={`text-md font-semibold text-gray-400 border-b-[3] border-b-transparent ${pathMatchRoute('/sign-in') && 'text-black border-b-red-500'}`}>Sign In</li>
+                        <li className={`py-6 text-md font-semibold text-gray-400 border-b-3 hidden sm:inline ${pathMatchRoute('/sign-in') && 'text-black border-b-red-500'}`}>Sign In</li>
                     )}
                 </Link>
             </ul>

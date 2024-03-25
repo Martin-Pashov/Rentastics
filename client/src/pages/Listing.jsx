@@ -141,36 +141,37 @@ export default function Listing() {
                             </div>
 
                             <div className='flex flex-col md:w-5/12'>
-                                <div className='flex flex-col justify-center max-w-4xl mx-auto p-3 my-7 gap-4'>
+                                <div className='flex flex-col justify-between max-w-4xl mx-auto p-3 my-7 gap-4'>
                                     <p className='text-3xl font-semibold'>
-                                        {listing.name} - $ {' '}
+                                        {listing.name} <br/>${' '}
                                         {listing.offer ? listing.discountedPrice.toLocaleString('en-US') : listing.regularPrice.toLocaleString('en-US')}
                                         {listing.type === 'rent' && ' per month'}
                                     </p>
 
-                                    <p className='flex items-center mt-4 gap-2 text-slate-600 text-sm'>
+                                    <p className='flex items-center mt-4 gap-2 text-slate-600 text-md'>
                                         <FaMapMarkerAlt className='text-green-700' />
                                         {listing.address}
                                     </p>
                                     
-                                    <div className='w-full flex gap-4 justify'>
-                                        <p className='bg-red-900 w-full max-w-[615px] text-white text-center p-2 rounded-md'>
+                                    <div className='w-full flex gap-4 justify-center'>
+                                        <p className='bg-red-900 w-full max-w-[615px] text-white text-center p-2 rounded-md flex justify-center items-center'>
                                             {listing.type === 'rent' ? 'Available for Rent' : 'Available for Sale'}
                                         </p>
                                     </div>
 
-                                    <div className='flex gap-4 justify'>
+                                    <div className='flex gap-4 justify-center'>
                                         {listing.offer && (
-                                            <p className='bg-green-900 w-full max-w-[300px] text-white text-center p-1.5 rounded-md'>
+                                            <p className='bg-green-900 w-full max-w-[300px] text-white text-center p-1.5 rounded-md flex justify-center items-center'>
                                                 {`A discount of $${(+listing.regularPrice - +listing.discountedPrice).toLocaleString('en-US')} is applied`}
                                             </p>
                                         )}
                                         {listing.offer && (
-                                            <p className='bg-green-900 w-full max-w-[300px] text-white text-center p-1.5 rounded-md'>
+                                            <p className='bg-green-900 w-full max-w-[300px] text-white text-center p-1.5 rounded-md flex justify-center items-center'>
                                                 {`Original price is $${listing.regularPrice.toLocaleString('en-US')}`}
                                             </p>
                                         )}
                                     </div>
+
 
 
                                     <div className='text-slate-800 items-stretch'>
@@ -184,7 +185,7 @@ export default function Listing() {
                                     </div>
 
 
-                                    <ul className='text-green-800 font-semibold text-sm flex flex-wrap items-center gap-4 sm:gap-6'>
+                                    <ul className='text-green-800 font-semibold text-sm flex flex-wrap justify-evenly items-center gap-4 sm:gap-6'>
                                         <li className='flex items-center gap-1 whitespace-nowrap '>
                                             <FaBed className='text-lg' />
                                             {listing.bedrooms > 1 ? `${listing.bedrooms} beds ` : `${listing.bedrooms} bed `}
