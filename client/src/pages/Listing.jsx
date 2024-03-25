@@ -116,84 +116,107 @@ export default function Listing() {
 
                     {copied && (<p className='fixed top-[23%] right-[5%] z-10 rounded-md bg-slate-100 p-2'>URL copied successfully.</p>)}
 
-                    <div className='flex flex-col max-w-4xl mx-auto p-3 my-7 gap-4'>
-                        <p className='text-2xl font-semibold'>
-                            {listing.name} - ${' '}
-                            {listing.offer ? listing.discountedPrice.toLocaleString('en-US') : listing.regularPrice.toLocaleString('en-US')}
-                            {listing.type === 'rent' && ' / month'}
-                        </p>
+                    <div className='m-4 flex flex-col md:flex-auto max-w-6xl lg:mx-auto p-3 my-7 ml-5 mr-5 gap-4 rounded-lg shadow-lg bg-white lg:space-x-5'>
+                        <div className='flex justify-evenly flex-col-reverse md:flex-row-reverse md:gap-4'>
+                            <div className='md:w-5/12 h-72 md:h-auto z-10 overflow-x-hidden my-4 md:my-32'>
+                                <MapContainer
+                                    center={[48.8566, 2.3522]} // Default center
+                                    zoom={13}
+                                    scrollWheelZoom={true}
+                                    className="w-full h-full"
+                                    style={{ minHeight: '200px' }} // Set a minimum height for small screens
+                                >
+                                    {/* Render the tile layer */}
+                                    <TileLayer
+                                        attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+                                        url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                                    />
+                                    {/* Render the marker if the address is available */}
+                                    {listing.address && (
+                                        <Marker position={[48.8566, 2.3522]}>
+                                            <Popup>The address of the property is: {listing.address}</Popup>
+                                        </Marker>
+                                    )}
+                                </MapContainer>
+                            </div>
 
-                        <p className='flex items-center mt-6 gap-2 text-slate-600 text-sm'>
-                            <FaMapMarkerAlt className='text-green-700' />
-                            {listing.address}
-                        </p>
+                            <div className='flex flex-col md:w-5/12'>
+                                <div className='flex flex-col justify-center max-w-4xl mx-auto p-3 my-7 gap-4'>
+                                    <p className='text-3xl font-semibold'>
+                                        {listing.name} - $ {' '}
+                                        {listing.offer ? listing.discountedPrice.toLocaleString('en-US') : listing.regularPrice.toLocaleString('en-US')}
+                                        {listing.type === 'rent' && ' per month'}
+                                    </p>
 
-                        <div className='flex gap-4'>
-                            <p className='bg-red-900 w-full max-w-[200px] text-white text-center p-1 rounded-md'>
-                                {listing.type === 'rent' ? 'For Rent' : 'For Sale'}
-                            </p>
+                                    <p className='flex items-center mt-4 gap-2 text-slate-600 text-sm'>
+                                        <FaMapMarkerAlt className='text-green-700' />
+                                        {listing.address}
+                                    </p>
+                                    
+                                    <div className='w-full flex gap-4 justify'>
+                                        <p className='bg-red-900 w-full max-w-[615px] text-white text-center p-2 rounded-md'>
+                                            {listing.type === 'rent' ? 'Available for Rent' : 'Available for Sale'}
+                                        </p>
+                                    </div>
 
-                            {listing.offer && (<p className='bg-green-900 w-full max-w-[200px] text-white text-center p-1 rounded-md'>${+listing.regularPrice - +listing.discountedPrice} discount</p>)}
+                                    <div className='flex gap-4 justify'>
+                                        {listing.offer && (
+                                            <p className='bg-green-900 w-full max-w-[300px] text-white text-center p-1.5 rounded-md'>
+                                                {`A discount of $${(+listing.regularPrice - +listing.discountedPrice).toLocaleString('en-US')} is applied`}
+                                            </p>
+                                        )}
+                                        {listing.offer && (
+                                            <p className='bg-green-900 w-full max-w-[300px] text-white text-center p-1.5 rounded-md'>
+                                                {`Original price is $${listing.regularPrice.toLocaleString('en-US')}`}
+                                            </p>
+                                        )}
+                                    </div>
+
+
+                                    <div className='text-slate-800 items-stretch'>
+                                        <p className='font-semibold mb-2 mt-5 text-black text-xl'>Overview of the Property:</p>
+                                        {listing.description.split('\n').map((paragraph, index) => (
+                                            <React.Fragment key={index}>
+                                                <span className='justify-evenly'>{paragraph}</span>
+                                                {index < listing.description.split('\n').length - 1 && <br />}
+                                            </React.Fragment>
+                                        ))}
+                                    </div>
+
+
+                                    <ul className='text-green-800 font-semibold text-sm flex flex-wrap items-center gap-4 sm:gap-6'>
+                                        <li className='flex items-center gap-1 whitespace-nowrap '>
+                                            <FaBed className='text-lg' />
+                                            {listing.bedrooms > 1 ? `${listing.bedrooms} beds ` : `${listing.bedrooms} bed `}
+                                        </li>
+
+
+                                        <li className='flex items-center gap-1 whitespace-nowrap '>
+                                            <FaBath className='text-lg' />
+                                            {listing.bathrooms > 1 ? `${listing.bathrooms} baths ` : `${listing.bathrooms} bath `}
+                                        </li>
+
+                                        <li className='flex items-center gap-1 whitespace-nowrap '>
+                                            <FaParking className='text-lg' />
+                                            {listing.parking ? 'Parking spot' : 'No Parking'}
+                                        </li>
+
+                                        <li className='flex items-center gap-1 whitespace-nowrap '>
+                                            <FaChair className='text-lg' />
+                                            {listing.furnished ? 'Furnished' : 'Unfurnished'}
+                                        </li>
+                                    </ul>
+
+                                    {currentUser && listing.userRef !== currentUser._id && !contact && (
+                                        <button onClick={() => setContact(true)} className='p-3 text-blue-900 border border-blue-700 rounded uppercase hover:shadow-lg disabled:opacity-80'>Get in Touch with Landlord</button>
+                                    )}
+                                    {contact && <Contact listing={listing} />}
+                                </div>
+                            </div>
+
+
+                            
                         </div>
-
-                        <p className='text-slate-800'>
-                        <span className='font-semibold text-black text-lg'>Property Description:</span><br />
-                            {listing.description.split('\n').map((paragraph, index) => (
-                                <React.Fragment key={index}>
-                                    {paragraph}<br className="mb-0" />
-                                    {index < listing.description.split('\n').length - 1 && <br />}
-                                </React.Fragment>
-                            ))}
-                        </p>
-
-                        <ul className='text-green-900 font-semibold text-sm flex flex-wrap items-center gap-4 sm:gap-6'>
-                            <li className='flex items-center gap-1 whitespace-nowrap '>
-                                <FaBed className='text-lg' />
-                                {listing.bedrooms > 1 ? `${listing.bedrooms} beds ` : `${listing.bedrooms} bed `}
-                            </li>
-
-
-                            <li className='flex items-center gap-1 whitespace-nowrap '>
-                                <FaBath className='text-lg' />
-                                {listing.bathrooms > 1 ? `${listing.bathrooms} baths ` : `${listing.bathrooms} bath `}
-                            </li>
-
-                            <li className='flex items-center gap-1 whitespace-nowrap '>
-                                <FaParking className='text-lg' />
-                                {listing.parking ? 'Parking spot' : 'No Parking'}
-                            </li>
-
-                            <li className='flex items-center gap-1 whitespace-nowrap '>
-                                <FaChair className='text-lg' />
-                                {listing.furnished ? 'Furnished' : 'Unfurnished'}
-                            </li>
-                        </ul>
-                        {currentUser && listing.userRef !== currentUser._id && !contact && (
-                            <button onClick={() => setContact(true)} className='p-3 text-blue-700 border border-blue-700 rounded uppercase hover:shadow-lg disabled:opacity-80'>Get in Touch with Landlord</button>
-                        )}
-                        {contact && <Contact listing={listing} />}
-                    </div>
-
-                    
-                    <div className="h-[200px] md:h-[400px] z-10 overflow-x-hidden mt-6 md:mt-0 md:ml-2">
-                        <MapContainer
-                            center={[48.8566, 2.3522]} // Default center
-                            zoom={13}
-                            scrollWheelZoom={true}
-                            style={{ height: '100%', width: '100%' }}
-                        >
-                            {/* Render the tile layer */}
-                            <TileLayer
-                                attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-                                url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-                            />
-                            {/* Render the marker if the address is available */}
-                            {listing.address && (
-                                <Marker position={[48.8566, 2.3522]}>
-                                    <Popup>The address of the property is: {listing.address}</Popup>
-                                </Marker>
-                            )}
-                        </MapContainer>
                     </div>
                 </div>
             )}
