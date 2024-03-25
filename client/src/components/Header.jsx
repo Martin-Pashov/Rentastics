@@ -67,11 +67,16 @@ export default function Header() {
 
                 <Link to='/profile'> 
                     {currentUser ? (
-                        <img className='rounded-full h-7 w-7 object-cover' src={currentUser.avatar} alt="User Avatar" />
+                        currentUser.avatar ? (
+                            <img className='rounded-full h-7 w-7 object-cover' src={currentUser.avatar} alt="User Avatar" />
+                        ) : (
+                            <img className='rounded-full border border-slate-600 h-7 w-7 object-cover' src="https://cdn.pixabay.com/photo/2018/11/13/21/43/avatar-3814049_1280.png" alt="Default Avatar" />
+                        )
                     ) : (
                         <li className={`py-6 text-md font-semibold text-gray-400 border-b-3 hidden sm:inline ${pathMatchRoute('/sign-in') && 'text-black border-b-red-500'}`}>Sign In</li>
                     )}
                 </Link>
+
             </ul>
         </div>
     </header>

@@ -202,8 +202,9 @@ export default function Profile() {
 
       <form onSubmit={handleSubmit} className="flex flex-col gap-4">
         <input onChange={(e) => setFile(e.target.files[0])} type="file" ref={fileRef} hidden accept="image/*"/>
-        <img onClick={() => fileRef.current.click()} src={formData.avatar || currentUser.avatar} alt='profile' className="rounded-full h-24 w-24 object-cover cursor-pointer self-center mt-2" />
-        
+        <img onClick={() => fileRef.current.click()} src={formData.avatar || (currentUser && currentUser.avatar) || "https://cdn.pixabay.com/photo/2018/11/13/21/43/avatar-3814049_1280.png"} alt='profile' className="rounded-full h-24 w-24 object-cover border border-slate-600 cursor-pointer self-center mt-2 hover:opacity-50" />
+        <p onClick={() => fileRef.current.click()} className="text-gray-500 text-sm text-center mt-2 cursor-pointer hover:opacity-50">Update photo</p>
+
         <p className="test-sm self-center">
           {fileUploadError ? (
             <span className="text-red-700">Error with image upload! Also the image should be less than 2 mb!</span>) : (
