@@ -18,6 +18,7 @@ import Contact from '../components/Contact';
 import { MapContainer, Marker, Popup, TileLayer } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 import { getCoordinatesForListing } from '../../../api/controllers/listing.controller.js';
+import { Icon } from 'leaflet';
 
 export default function Listing() {
     SwiperCore.use([Navigation]);
@@ -31,6 +32,11 @@ export default function Listing() {
     const [contact, setContact] = useState(false);
     const currentUser = useSelector((state) => state.user.currentUser);
     const [mapCenter, setMapCenter] = useState([48.8566, 2.3522]); // Default center
+
+    const customIcon = new Icon({
+        iconUrl: "https://cdn-icons-png.flaticon.com/512/179/179570.png",
+        iconSize: [38, 38]
+    })
 
     
     useEffect(() => {
@@ -81,22 +87,17 @@ export default function Listing() {
                     const coords = await getCoordinatesForListing(listing);
                     if (coords) {
                         setMapCenter([coords.lat, coords.lng]);
-                    } 
-                    
-                    else {
+                    } else {
                         console.log('Coordinates not found for the listing.');
                     }
                 }
-            } 
-            
-            catch (error) {
+            } catch (error) {
                 console.error('Error fetching coordinates:', error);
             }
         };
-    
+
         fetchCoordinates();
     }, [listing]);
-    
 
   return (
         <main>
@@ -144,7 +145,7 @@ export default function Listing() {
 
                     <div className='m-4 flex flex-col md:flex-auto max-w-6xl lg:mx-auto p-3 my-7 ml-5 mr-5 gap-4 rounded-lg shadow-lg bg-white lg:space-x-5'>
                         <div className='flex justify-evenly flex-col-reverse md:flex-row-reverse md:gap-4'>
-                            <div className='md:w-5/12 h-72 md:h-auto z-10 overflow-x-hidden my-4 md:my-32'>
+                            <div className='md:w-5/12 h-72 md:h-auto z-10 overflow-x-hidden my-4 md:my-32 sm:h-auto'>
                                 <MapContainer
                                     center={mapCenter}
                                     zoom={13}
@@ -155,11 +156,11 @@ export default function Listing() {
                                     {/* Render the tile layer */}
                                     <TileLayer
                                         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-                                        url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                                        url="https://tile.openstreetmap.org/{z}/{x}/{y}.png"
                                     />
                                     {/* Render the marker if the coordinates are available */}
                                     {mapCenter && (
-                                        <Marker position={mapCenter}>
+                                        <Marker position={mapCenter} icon={customIcon}>
                                             <Popup>The address of the property is: {listing.address}</Popup>
                                         </Marker>
                                     )}

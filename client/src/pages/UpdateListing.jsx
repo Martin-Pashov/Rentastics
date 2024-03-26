@@ -50,17 +50,27 @@ export default function UpdateListing() {
         if (files.length > 0 && files.length + formData.imageUrls.length < 7) {
             setUploading(true);
             setImageUploadError(false);
+            const uploadedFileNames = [];
 
             const promises = [];
 
             for (let i = 0; i < files.length; i++) {
-                promises.push(storeImage(files[i]));
+                const file = files[i];
+                const fileName = new Date().getTime() + file.name;
+                promises.push(storeImage(file, fileName)); // Pass file name to storeImage function
+                uploadedFileNames.push(file.name); // Store file name
             }
 
             Promise.all(promises).then((urls) => {
-                setFormData({ ...formData, imageUrls: formData.imageUrls.concat(urls) });
+                setFormData({ 
+                    ...formData, 
+                    imageUrls: formData.imageUrls.concat(urls), 
+                    imageFileNames: formData.imageFileNames
+                    ? formData.imageFileNames.concat(uploadedFileNames)
+                    : uploadedFileNames, });
                 setImageUploadError(false);
                 setUploading(false);
+
             }).catch((error) => {
                 setImageUploadError('Failed to upload image. Please ensure each image is no larger than 3MB.');
                 setUploading(false);
@@ -249,9 +259,8 @@ export default function UpdateListing() {
                         formData.imageUrls.length > 0 && formData.imageUrls.map((url, index) => (
                             <div key={url} className='flex justify-between p-3 border items-center'>
                                 <img src={url} alt="listing image" className='w-20 h-20 object-contain rounded-lg'/>
-                                    <div>
-                                        <p>{fileNames[index]}</p>
-                                    </div>
+                                <div className='truncate text-center w-[10rem]'>
+                                    <p>{formData.imageFileNames && formData.imageFileNames[index]}</p> {/* Render file name */}                                    </div>
                                 <button type="button" onClick={()=>handleRemoveImage(index)} className='p-3 text-red-500 rounded-lg uppercase hover:opacity-75'>Remove</button>
                             </div>
                         ))
