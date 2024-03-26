@@ -17,6 +17,7 @@ import powImage from '../../public/images/pow.svg';
 import Contact from '../components/Contact';
 import { MapContainer, Marker, Popup, TileLayer } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
+import { getCoordinatesForListing } from '../../../api/controllers/listing.controller.js';
 
 export default function Listing() {
     SwiperCore.use([Navigation]);
@@ -29,6 +30,7 @@ export default function Listing() {
     const [copied, setCopied] = useState(false);
     const [contact, setContact] = useState(false);
     const currentUser = useSelector((state) => state.user.currentUser);
+    const [mapCenter, setMapCenter] = useState([48.8566, 2.3522]); // Default center
 
     
     useEffect(() => {
@@ -70,6 +72,30 @@ export default function Listing() {
 
         fetchListing();
     }, [params.listingId]);
+
+
+    useEffect(() => {
+        const fetchCoordinates = async () => {
+            try {
+                if (listing && listing.address) {
+                    const coords = await getCoordinatesForListing(listing);
+                    if (coords) {
+                        setMapCenter([coords.lat, coords.lng]);
+                    } 
+                    
+                    else {
+                        console.log('Coordinates not found for the listing.');
+                    }
+                }
+            } 
+            
+            catch (error) {
+                console.error('Error fetching coordinates:', error);
+            }
+        };
+    
+        fetchCoordinates();
+    }, [listing]);
     
 
   return (
@@ -120,20 +146,20 @@ export default function Listing() {
                         <div className='flex justify-evenly flex-col-reverse md:flex-row-reverse md:gap-4'>
                             <div className='md:w-5/12 h-72 md:h-auto z-10 overflow-x-hidden my-4 md:my-32'>
                                 <MapContainer
-                                    center={[48.8566, 2.3522]} // Default center
+                                    center={mapCenter}
                                     zoom={13}
                                     scrollWheelZoom={true}
                                     className="w-full h-full"
-                                    style={{ minHeight: '200px' }} // Set a minimum height for small screens
+                                    style={{ minHeight: '200px' }}
                                 >
                                     {/* Render the tile layer */}
                                     <TileLayer
                                         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
                                         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                                     />
-                                    {/* Render the marker if the address is available */}
-                                    {listing.address && (
-                                        <Marker position={[48.8566, 2.3522]}>
+                                    {/* Render the marker if the coordinates are available */}
+                                    {mapCenter && (
+                                        <Marker position={mapCenter}>
                                             <Popup>The address of the property is: {listing.address}</Popup>
                                         </Marker>
                                     )}
@@ -214,9 +240,6 @@ export default function Listing() {
                                     {contact && <Contact listing={listing} />}
                                 </div>
                             </div>
-
-
-                            
                         </div>
                     </div>
                 </div>

@@ -1,5 +1,6 @@
 import Listing from "../models/listing.model.js";
 import { errorHandler } from '../utils/error.js';
+import { getCoordsForAddress } from '../utils/location.js';
 
 export const createListing = async (request, response, next) => {
     try {
@@ -125,3 +126,18 @@ export const getListings = async (request, response, next) => {
         next(error);
     }
 }
+
+
+export async function getCoordinatesForListing(listing) {
+    try {
+        const address = listing.address;
+        const coordinates = await getCoordsForAddress(address);
+        return coordinates;
+    } 
+    
+    catch (error) {
+        console.error('Error fetching coordinates:', error);
+        throw error;
+    }
+}
+

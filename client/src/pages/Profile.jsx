@@ -211,7 +211,7 @@ export default function Profile() {
             filePercentage > 0 && filePercentage < 100) ? (
               <span className="text-black">{`Uploading ${filePercentage}% `}</span>
             ) : filePercentage === 100 ? (
-              <span className="text-green-700">Image successfully  uploaded!</span>
+              <span className="text-green-700">Image successfully uploaded!</span>
             ) : (
             ''
           )}
