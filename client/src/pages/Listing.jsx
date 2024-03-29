@@ -176,7 +176,7 @@ export default function Listing() {
           <div className="m-4 flex flex-col md:flex-auto max-w-6xl lg:mx-auto p-3 my-7 ml-5 mr-5 gap-4 rounded-lg shadow-lg bg-white lg:space-x-5">
             <div className="flex justify-evenly flex-col-reverse md:flex-row-reverse md:gap-4">
               <div className="md:w-5/12 h-72 md:h-auto z-10 overflow-x-hidden my-4 md:my-32 sm:h-auto">
-                { mapCenter.length > 0  && 
+                {mapCenter.length > 0  && 
                   <MapContainer
                     center={mapCenter}
                     zoom={13}
@@ -286,12 +286,12 @@ export default function Listing() {
                     !contact && (
                       <button
                         onClick={() => setContact(true)}
-                        className="p-3 text-blue-900 border border-blue-700 rounded uppercase hover:shadow-lg disabled:opacity-80"
-                      >
+                        className="py-3 px-6 text-blue-900 border border-blue-700 rounded uppercase hover:shadow-lg disabled:opacity-80 bg-blue-100 hover:bg-blue-200 transition duration-300 ease-in-out"                      >
                         Get in Touch with Landlord
                       </button>
                     )}
                   {contact && <Contact listing={listing} />}
+
                 </div>
               </div>
             </div>

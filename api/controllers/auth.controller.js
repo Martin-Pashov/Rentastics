@@ -87,7 +87,7 @@ export const google = async (req, res, next) => {
         const user = await User.findOne({ email: req.body.email });
 
         if (user) {
-            const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET );
+            const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET);
             const { password: pass, ...rest } = user._doc;
             res.cookie('access_token', token, { httpOnly: true }).status(200).json(rest);
         }
@@ -102,7 +102,7 @@ export const google = async (req, res, next) => {
                 avatar: req.body.photo,
             });
             await newUser.save();
-            const token = jwt.sign({ id: newUser._id}, process.env.JWT_SECRET_KEY);
+            const token = jwt.sign({ id: newUser._id}, process.env.JWT_SECRET);
             const { password: pass, ...rest } = newUser._doc;
             res.cookie("access_token", token, { httpOnly: true }).status(200).json(rest);
         }
@@ -123,4 +123,36 @@ export const signOut = async (request, response, next) => {
     catch (error) {
       next(error);
     }
-  };
+};
+
+
+
+// export const forgotPassword = async (req, res) => {
+//     try {
+//         const { email } = req.body;
+
+//         // Find user by email
+//         const user = await User.findOne({ email });
+//         if (!user) {
+//             return res.status(404).json({ message: "User not found" });
+//         }
+
+//         // Generate reset token
+//         const resetToken = jwt.sign({ id: user._id }, process.env.RESET_TOKEN_SECRET, { expiresIn: '1h' });
+
+//         // Update user document with reset token and expiration time
+//         user.resetToken = resetToken;
+//         user.resetTokenExpiration = Date.now() + 3600000; // 1 hour
+//         await user.save();
+
+//         // Send reset email
+//         sendResetEmail(email, resetToken); // Implement this function
+
+//         res.status(200).json({ message: "Password reset instructions sent to your email" });
+//     } 
+    
+//     catch (error) {
+//         console.error(error);
+//         res.status(500).json({ message: "Internal server error" });
+//     }
+// };
