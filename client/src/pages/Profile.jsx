@@ -92,10 +92,11 @@ export default function Profile() {
       dispatch(updateUserSuccess(data));
       setUpdateSuccess(true);
       
-      const signOutMessage = 'Your profile was successfully updated. Changes have been saved. Signing out in 5 seconds...';
-      dispatch(setSignOutMessage(signOutMessage));
+      //const signOutMessage = 'Your profile was successfully updated. Changes have been saved.';
+      //dispatch(setSignOutMessage(signOutMessage));
       setTimeout(() => {
-        dispatch(handleSignOut());
+        //dispatch(setSignOutMessage(''));
+        setUpdateSuccess(false);
       }, 3000);
     } 
 
@@ -197,13 +198,13 @@ export default function Profile() {
 
 
   return (
-    <div className="p-3 max-w-lg mx-auto">
+    <div className="p-3 max-w-2xl mx-auto">
       <h1 className='text-3xl font-semibold text-center my-7'>Profile</h1>
 
       <form onSubmit={handleSubmit} className="flex flex-col gap-4">
         <input onChange={(e) => setFile(e.target.files[0])} type="file" ref={fileRef} hidden accept="image/*"/>
         <img onClick={() => fileRef.current.click()} src={formData.avatar || (currentUser && currentUser.avatar) || "https://cdn.pixabay.com/photo/2018/11/13/21/43/avatar-3814049_1280.png"} alt='profile' className="rounded-full h-24 w-24 object-cover border border-slate-600 cursor-pointer self-center mt-2 hover:opacity-50" />
-        <p onClick={() => fileRef.current.click()} className="text-gray-500 text-sm text-center mt-2 cursor-pointer hover:opacity-50">Update photo</p>
+        <p onClick={() => fileRef.current.click()} className="text-gray-500 text-sm text-center mt-2 cursor-pointer hover:opacity-50" id="text">Update photo</p>
 
         <p className="test-sm self-center">
           {fileUploadError ? (
@@ -229,8 +230,8 @@ export default function Profile() {
         <span onClick={handleSignOut} className="text-red-700 cursor-pointer">Sign Out</span>
       </div>
 
-      <p className="text-red-700 mt-5">{error ? error : ''}</p>
-      <p className="text-green-700 mt-5">{updateSuccess ? 'Your profile was successfully updated. Changes have been saved.' : ''}</p>
+      <p className="text-red-700 mt-5 self-center">{error ? error : ''}</p>
+      <p className="text-green-700 mt-5 mb-6 justify text-center">{updateSuccess ? 'Your profile was successfully updated. Changes have been saved.' : ''}</p>
       <button onClick={() => {handleShowListings(); setShowListingsClicked(true);}} className="flex flex-col items-center justify-center p-3 text-green-700 border border-green-700 rounded uppercase hover:shadow-lg disabled:opacity-80 w-50% mx-auto">View Your Properties</button>
       
         {showListingsClicked && (
@@ -247,29 +248,33 @@ export default function Profile() {
         <p className='text-red-700 mt-5'>{deleteError ? 'Error deleting listing' : ''}</p>
       </div>
       
-
-      {userListings && userListings.length > 0 &&
+      {userListings && userListings.length > 0 && (
         <div className="flex flex-col gap-6">
-          <h1 className='text-center mt-7 text-2xl font-semibold'>Your Listings</h1>
-          {userListings.map((listing) => (
-            <div key={listing._id} className='border rounded-lg p-3 flex justify-between items-center gap-4'>
-              <Link to={`/listing/${listing._id}`}>
-                <img src={listing.imageUrls[0]} alt='listing cover' className='h-16 w-16 object-contain' />
-              </Link>
-
-              <Link className='text-slate-700 font-semibold hover:underline truncate flex-1' to={`/listing/${listing._id}`}>
-                <p className="truncate">{listing.name}</p>
-              </Link>
-
-              <div className='flex flex-col item-center'>
-                <Link to={`/update-listing/${listing._id}`}>
-                  <button className="flex flex-col items-center justify-center p-3 text-green-700 border border-green-700 rounded uppercase hover:shadow-lg disabled:opacity-80 w-50% mx-auto">Edit</button>
+          <h1 className="text-center mt-7 text-2xl font-semibold">Your Listings</h1>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 justify-items-center">
+            {userListings.map((listing) => (
+              <div key={listing._id} className="border rounded-lg overflow-hidden shadow-md hover:shadow-lg">
+                <Link to={`/listing/${listing._id}`} className="block">
+                  <img src={listing.imageUrls[0]} alt="listing cover" className="w-full object-cover h-48 sm:h-56 md:h-64 lg:h-64 xl:h-64 hover:scale-105 transition-scale duration-300 filter brightness-90 hover:brightness-100" />
                 </Link>
-                <button onClick={()=>handleListingDelete(listing._id)} className="flex flex-col items-center justify-center mt-2 p-3 text-red-700 border border-red-700 rounded uppercase hover:shadow-lg disabled:opacity-80 w-50% mx-auto">Delete</button>
+
+                <div className="p-4">
+                  <Link to={`/listing/${listing._id}`} className="block text-center text-slate-700 font-semibold text-lg sm:text-xl hover:underline truncate">
+                    {listing.name}
+                  </Link>
+
+                  <div className="flex items-center justify-center mt-4 space-x-5">
+                    <Link to={`/update-listing/${listing._id}`}>
+                      <button className="px-6 py-3 text-sm lg:text-base text-green-700 border border-green-700 rounded-lg uppercase hover:bg-green-700 hover:text-white focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2">Edit</button>
+                    </Link>
+                    <button onClick={() => handleListingDelete(listing._id)} className="px-6 py-3 text-sm lg:text-base text-red-700 border border-red-700 rounded-lg uppercase hover:bg-red-700 hover:text-white focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2">Delete</button>
+                  </div>
+                </div>
               </div>
-            </div>
-        ))}
-      </div>}
+            ))}
+          </div>
+        </div>
+      )}
     </div>
   );
 }

@@ -26,11 +26,11 @@ export const updateUserInfo = async (request, response, next) => {
                 email: request.body.email,
                 password: request.body.password,
                 avatar: request.body.avatar,
-            }
-        }, {new: true})
+            },
+        }, {new: true});
 
         const {password, ...rest} = updatedUser._doc
-        response.status(200).json({rest})
+        response.status(200).json(rest);
     }
 
     catch (error) {
