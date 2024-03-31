@@ -42,7 +42,7 @@ export default function Header() {
     <header className='bg-white border-b shadow-sm sticky top-0 z-50'>
         <div className='flex justify-between items-center max-w-6xl mx-auto p-3'>
             <Link to='/'>
-                <img src={logo} alt='Martin Estate Logo' className='h-8 sm:h-10 cursor-pointer' />
+                <img src={logo} alt='Logo' className='h-8 sm:h-10 cursor-pointer' />
             </Link>
 
             <form onSubmit={handleSubmit} className='bg-slate-100 p-3 rounded-lg flex items-center'>

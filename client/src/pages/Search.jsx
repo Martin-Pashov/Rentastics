@@ -127,10 +127,10 @@ export default function Search() {
 
 
 
-  return (
-    <div className='flex flex-col md:flex-row'>
-        <div className='p-7 border-b border-gray-200 md:border-r md:min-h-screen'>
-            <form onSubmit={handleSubmit} className='flex flex-col gap-6'>
+    return (
+        <div className='flex flex-col md:flex-row h-full'>
+          <div className='p-10 border-gray-200 md:border-r md:min-h-screen md:flex-grow'>
+            <form onSubmit={handleSubmit} className='flex flex-col gap-6 h-full'>
                 <div className='flex items-center gap-4'>
                     <label htmlFor='searchTerm' className='whitespace-nowrap font-bold'>Search Term:</label>
                     <input type='text' id='searchTerm' placeholder='Enter keywords to search properties...' className='truncate border rounded-lg p-3 w-full' value={sidebarData.searchTerm} onChange={handleChange}></input>

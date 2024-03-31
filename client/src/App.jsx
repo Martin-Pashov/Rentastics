@@ -14,6 +14,7 @@ import Listing from './pages/Listing';
 import PageNotFound from './pages/errors/PageNotFound';
 import Search from './pages/Search';
 import AccessDeniedPage from './pages/errors/AccessDeniedPage';
+import Footer from './components/Footer';
 //import ForgotPassword from './pages/ForgotPassword';
 
 
@@ -41,6 +42,7 @@ export default function App() {
       <Route path="*" element={<PageNotFound />} />
       <Route path='/access-denied-page' element={<AccessDeniedPage />} />
     </Routes>
+    <Footer />
   </BrowserRouter>
   )
 }

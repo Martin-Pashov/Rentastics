@@ -61,7 +61,7 @@ export default function SignIn() {
   };
 
   return (
-    <div className='p-3 max-w-lg mx-auto'>
+    <div className='p-3 max-w-lg mx-auto mt-20'>
       <div className='text-center'>
         <img className='mx-auto w-12' src={logoImg} alt="logo" />
         <h4 className='mb-12 mt-1 pb-1 text-xl font-bold'>Welcome to Rentastics</h4>
@@ -73,9 +73,9 @@ export default function SignIn() {
         <input type='password' placeholder='Password' className='border p-3 rounded-lg' id='password' onChange={handleChange}/>
         <button disabled={loading} className='bg-blue-500 text-white p-3 rounded-lg uppercase hover:opacity-95 disabled:opacity-80'>{loading ? 'Loading...' : 'Sign In'}</button>
         
-        <Link to="/forgot-password" className="block text-center mt-2 text-blue-500">
+        {/* <Link to="/forgot-password" className="block text-center mt-2 text-blue-500">
           Forgot Password?
-        </Link>
+        </Link> */}
         
           <div className="flex items-center  my-4 before:border-t before:flex-1 before:border-gray-300 after:border-t after:flex-1 after:border-gray-300">
             <p className="text-center font-semibold mx-4">OR</p>

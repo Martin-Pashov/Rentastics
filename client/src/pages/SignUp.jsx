@@ -89,7 +89,7 @@ export default function SignUp() {
 
 
   return (
-    <div className='p-3 max-w-lg mx-auto'>
+    <div className='p-3 max-w-lg mx-auto mt-5'>
       <div className='text-center'>
         <img className='mx-auto w-12' src={logoImg} alt="logo" />
         <h4 className='mb-12 mt-1 pb-1 text-xl font-bold'>Welcome to Rentastics</h4>
