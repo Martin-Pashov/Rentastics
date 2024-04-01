@@ -251,7 +251,7 @@ export default function Profile() {
       {userListings && userListings.length > 0 && (
         <div className="flex flex-col gap-6">
           <h1 className="text-center mt-7 text-2xl font-semibold">Your Listings</h1>
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 justify-items-center">
+          <div className="grid grid-cols-2 sm:grid-cols-2 gap-6 justify-items-center">
             {userListings.map((listing) => (
               <div key={listing._id} className="border rounded-lg overflow-hidden shadow-md hover:shadow-lg">
                 <Link to={`/listing/${listing._id}`} className="block">
@@ -260,7 +260,7 @@ export default function Profile() {
 
                 <div className="p-4">
                   <Link to={`/listing/${listing._id}`} className="block text-center text-slate-700 font-semibold text-lg sm:text-xl hover:underline truncate">
-                    {listing.name}
+                    {listing.name.length > 25 ? `${listing.name.substring(0, 25)}...` : listing.name}                  
                   </Link>
 
                   <div className="flex items-center justify-center mt-4 space-x-5">
