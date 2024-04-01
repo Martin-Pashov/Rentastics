@@ -47,7 +47,7 @@ export default function UpdateListing() {
     }, []);
 
     const handleImageSubmit = (e) => {
-        if (files.length > 0 && files.length + formData.imageUrls.length < 7) {
+        if (files.length > 0 && files.length + formData.imageUrls.length < 16) {
             setUploading(true);
             setImageUploadError(false);
             const uploadedFileNames = [];
@@ -78,7 +78,7 @@ export default function UpdateListing() {
         } 
 
         else {
-            setImageUploadError('You can upload a maximum of 6 images for each listing. Please remove any excess images.');
+            setImageUploadError('You can upload a maximum of 15 images for each listing. Please remove any excess images.');
             setUploading(false);
         }
     };
@@ -211,12 +211,12 @@ export default function UpdateListing() {
 
                     <div className='flex flex-wrap gap-6'>
                         <div className='flex items-center gap-2'>
-                            <input type='number' id='bedrooms' min='1' max='10' required className='p-3 border border-gray-300 rounded-lg w-24' onChange={handleChange} value={formData.bedrooms}/>
+                            <input type='number' id='bedrooms' min='1' max='20' required className='p-3 border border-gray-300 rounded-lg w-24' onChange={handleChange} value={formData.bedrooms}/>
                             <p>Bedrooms</p>
                         </div>
 
                         <div className='flex items-center gap-2'>
-                            <input type='number' id='bathrooms' min='1' max='10' required className='p-3 border border-gray-300 rounded-lg w-24' onChange={handleChange} value={formData.bathrooms}/>
+                            <input type='number' id='bathrooms' min='1' max='20' required className='p-3 border border-gray-300 rounded-lg w-24' onChange={handleChange} value={formData.bathrooms}/>
                             <p>Bathrooms</p>
                         </div>
 
@@ -246,7 +246,7 @@ export default function UpdateListing() {
 
                 <div className="flex flex-col flex-1 gap-4">
                     <p className='font-semibold'>Images:</p>
-                    <p className='font-normal text-gray-600 ml-2'>The first image selected will be the main cover, you can upload up to six images.</p>
+                    <p className='font-normal text-gray-600 ml-2'>The first image selected will be the main cover, you can upload up to fifteen images.</p>
 
                     <div className="flex gap-4">
                         <input onChange={(e)=>setFiles(e.target.files)} className='p-3 border border-gray-300 rounded w-full' type="file" id='images' accept='image/*' multiple />
@@ -260,7 +260,8 @@ export default function UpdateListing() {
                             <div key={url} className='flex justify-between p-3 border items-center'>
                                 <img src={url} alt="listing image" className='w-20 h-20 object-contain rounded-lg'/>
                                 <div className='truncate text-center w-[10rem]'>
-                                    <p>{formData.imageFileNames && formData.imageFileNames[index]}</p> {/* Render file name */}                                    </div>
+                                    <p>{formData.imageFileNames && formData.imageFileNames[index]}</p>                                 
+                                </div>
                                 <button type="button" onClick={()=>handleRemoveImage(index)} className='p-3 text-red-500 rounded-lg uppercase hover:opacity-75'>Remove</button>
                             </div>
                         ))
