@@ -1,5 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
+import aboutUsImage from "../../public/images/about-us.svg"
 
 export default function About() {
   return (
@@ -8,7 +9,7 @@ export default function About() {
         <h1 className="text-4xl text-center font-bold mb-8 text-gray-800">Welcome to Rentastics</h1>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
           <div className="mb-8">
-            <img src="../../public/images/about-us.svg" alt="About Us" className="rounded-lg shadow-md w-full object-cover hover:scale-105 transition-scale duration-300 filter brightness-90 hover:brightness-100"/>
+            <img src={aboutUsImage} alt="About Us" className="rounded-lg shadow-md w-full object-cover hover:scale-105 transition-scale duration-300 filter brightness-90 hover:brightness-100"/>
           </div>
           <div className="space-y-6">
           <p className="text-lg text-gray-700 leading-relaxed">At Rentastics, we believe that finding the perfect rental shouldn't be stressful. We're here to simplify your search and provide you with expert guidance every step of the way.</p>
