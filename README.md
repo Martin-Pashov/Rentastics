@@ -42,7 +42,11 @@ Welcome to Rentastics! This project is a MERN (MongoDB, Express.js, React.js, No
 
 ## Deployment
 
-The app is hosted on Render. You can go to the website by clicking [here](https://rentastics.onrender.com/), and it's suggested to open the link using the Mozilla Firefox browser for the best user experience.
+The app is hosted on Render. You can go to the website by clicking [here](https://rentastics.onrender.com/), and it's suggested to open the link using the **Mozilla Firefox browser** for the best user experience.
+
+## Documentation
+
+You can find the full documentation in the 'documentation for the project' directory in the repo. There are two versions of it: one as a .PDF and one as a .DOCX.
 
 ## Installation
 
