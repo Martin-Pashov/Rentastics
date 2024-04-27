@@ -40,6 +40,10 @@ Welcome to Rentastics! This project is a MERN (MongoDB, Express.js, React.js, No
 - **Nodemon**: Used Nodemon for automatically restarting the server during development.
 - **Redux and Redux Toolkit**: Employed Redux and Redux Toolkit for managing application state efficiently.
 
+## Deployment
+
+The app is hosted on Render. You can go to the website by clicking [here](https://rentastics.onrender.com/), and it's suggested to open the link using the Mozilla Firefox browser for the best user experience.
+
 ## Installation
 
 To run this project locally, follow these steps:
@@ -91,7 +95,14 @@ cd client
 npm run dev
 ```
 
-7. The application should automatcally open.
+7. The application should automatcally open in your web browser. 
+- If the link does not automatically open, you can manually open it by Ctrl + click-ing on the URL provided in the terminal of your code editor after starting the frontend development server. 
+- An example of what will be presented in the terminal:
+```
+➜ Local: http://localhost:5173/
+➜ Network: use --host to expose
+➜ press h + enter to show help
+```
 
 ## Contributing
 
