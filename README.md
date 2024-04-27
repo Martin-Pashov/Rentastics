@@ -8,6 +8,8 @@
 
 Welcome to Rentastics! This project is a MERN (MongoDB, Express.js, React.js, Node.js) stack website designed for buying, selling, and renting real estate properties. It serves as a platform for real estate brokers to publish their listings and for users to browse and interact with those listings.
 
+Rentastics is crafted with a user-friendly interface to provide an intuitive experience for both real estate brokers and users. Whether you're searching for your dream home or looking to showcase your property listings, Rentastics offers a seamless and efficient platform to meet your needs.
+
 ## Features
 
 - **User Authentication**: Secure user registration and authentication system.
