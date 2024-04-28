@@ -59,7 +59,7 @@ To run this project locally, follow these steps:
 git clone https://github.com/Martin-Pashov/Rentastics.git
 ```
 
-2. Navigate to the project directory:
+2. Navigate to the project directory in the terminal:
 ```
 cd rentastics
 ```
@@ -95,13 +95,13 @@ npm install
 npm run dev
 ```
 
-6. Start the frontend development server:
+7. Start the frontend development server:
 ```
 cd client
 npm run dev
 ```
 
-7. The application should automatcally open in your web browser. 
+8. The application should automatcally open in your web browser. 
 - If the link does not automatically open, you can manually open it by Ctrl + click-ing on the URL provided in the terminal of your code editor after starting the frontend development server. 
 - An example of what will be presented in the terminal:
 ```
